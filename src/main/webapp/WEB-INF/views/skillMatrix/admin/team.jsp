@@ -32,8 +32,8 @@
                 <c:forEach items="${teams}" var="team">
                     <tr>
                         <td><input type="text" name="teamName" value="${team.nameTeam}"/>
-                        <td><a type="button" href="/skillMatrix/admin/team/edit/${department.id}">EDIT</a></td>
-                        <td><a type="button" href="/skillMatrix/admin/team/remove/${department.id}">Remove</a></td>
+                        <td><a type="button" href="/skillMatrix/admin/team/edit/${team.id}">EDIT</a></td>
+                        <td><a type="button" href="/skillMatrix/admin/team/remove/${team.id}">Remove</a></td>
                     </tr>
                 </c:forEach>
             </table>
