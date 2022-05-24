@@ -35,7 +35,7 @@ public class TeamAdminController {
         return "skillMatrix/admin/teamCreate";
     }
 
-    @PostMapping("function/create")
+    @PostMapping("team/create")
     public String createTeam(@ModelAttribute("team")TeamsInWarehouse team, HttpSession httpSession){
         if(team == null) {
             return "redirect:/skillMatrix/admin/team/create";
