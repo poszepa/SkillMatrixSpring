@@ -45,7 +45,7 @@ public class TeamAdminController {
         return "redirect:/skillMatrix/admin/team/create";
     }
 
-    @GetMapping("function/remove/{id}")
+    @GetMapping("team/remove/{id}")
     public String removeTeam(@PathVariable("id")Integer id, Model model) {
         if(!teamRepository.existsById(id)) {
             return "redirect:/skillMatrix/admin/team";
@@ -74,7 +74,7 @@ public class TeamAdminController {
         return "/skillMatrix/admin/teamEdit";
     }
 
-    @PostMapping("function/edit")
+    @PostMapping("team/edit")
     public String modifyTeam(@ModelAttribute("team") TeamsInWarehouse team) {
         teamRepository.save(team);
         return "redirect:/skillMatrix/admin/team";
