@@ -15,7 +15,7 @@
     <jsp:include page="/WEB-INF/views/static/leftBar.jsp"/>
     <div class="col-sm-8 text-left">
       <form:form modelAttribute="team" method="post">
-        Input name a new department:<form:input path="nameTeam"></form:input>
+        Input name a new Team:<form:input path="nameTeam"></form:input>
         <form:errors path="nameTeam"/>
         <button type="submit">send</button>
       </form:form>
