@@ -98,6 +98,9 @@ out/
 # JIRA plugin
 atlassian-ide-plugin.xml
 
+#Application.properties Spring
+application.properties
+
 # Cursive Clojure plugin
 .idea/replstate.xml
 
