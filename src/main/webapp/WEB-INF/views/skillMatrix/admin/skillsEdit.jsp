@@ -18,7 +18,7 @@
                 <form:hidden path="id"/>
                 <div class="col-md-2">
                     <label for="modifyName" class="form-label">Skill Name</label>
-                    <form:input value="nameSkill" type="text" class="form-control" id="modifyName" path="nameSkill"/>
+                    <form:input type="text" class="form-control" id="modifyName" path="nameSkill"/>
                     <form:errors path="nameSkill"/>
                 </div>
                 <div class="col-md-2">
