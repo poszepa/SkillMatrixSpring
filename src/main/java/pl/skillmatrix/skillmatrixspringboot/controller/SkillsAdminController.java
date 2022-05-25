@@ -12,6 +12,7 @@ import pl.skillmatrix.skillmatrixspringboot.model.Skills;
 import pl.skillmatrix.skillmatrixspringboot.repository.DepartmentsInWarehouseRepository;
 import pl.skillmatrix.skillmatrixspringboot.repository.PersonRepository;
 import pl.skillmatrix.skillmatrixspringboot.repository.SkillsRepository;
+import pl.skillmatrix.skillmatrixspringboot.service.SkillsService;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -25,6 +26,7 @@ public class SkillsAdminController {
     private final DepartmentsInWarehouseRepository departmentsRepository;
     private final SkillsRepository skillsRepository;
     private final PersonRepository personRepository;
+    private final SkillsService skillsService;
 
     @GetMapping("skills")
     public String homeSkills(Model model) {
@@ -65,7 +67,7 @@ public class SkillsAdminController {
         if(result.hasErrors()) {
             return "redirect:/skillMatrix/admin/skills/edit/" + skills.getId();
         }
-        skillsRepository.save(skills);
+        skillsService.modifySkills(skills);
         session.setAttribute("successEditSkill", "successEditSkill");
         return "redirect:/skillMatrix/admin/skills/edit/" + skills.getId();
     }
