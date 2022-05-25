@@ -24,6 +24,7 @@ public class PersonController {
     private final FunctionInWarehouseRepository functionRepository;
     private final GroupsInWarehouseRepository groupsRepository;
     private final TeamsInWarehouseRepository teamRepository;
+    private final SkillsRepository skillsRepository;
 
     @GetMapping("person/create")
     public String createPerson(Model model, HttpSession httpSession) {
@@ -38,6 +39,7 @@ public class PersonController {
         if(result.hasErrors()){
             return "redirect:/skillMatrix/person/create";
         }
+        person.setSkillsList(skillsRepository.findAll());
         personRepository.save(person);
         httpSession.setAttribute("successAddPerson", person);
         return "redirect:/skillMatrix/person";

@@ -29,7 +29,7 @@
                     <th data-sortable="true">Function</th>
                     <th data-sortable="true">Group</th>
                     <th data-sortable="true">Team</th>
-                    <th data-sortable="true">SKilled</th>
+                    <th data-sortable="true">Skilled</th>
                 </tr>
                 </thead>
                 <c:forEach items="${persons}" var="person">
@@ -41,7 +41,7 @@
                         <th>${person.functionInWarehouse.functionName}</th>
                         <th>${person.groupsInWarehouse.nameGroup}</th>
                         <th>${person.teamsInWarehouse.nameTeam}</th>
-<%--                        <th>${person.skillsList.gainSkill}</th>--%>
+                        <th>${person.skillsList.gainSkill}</th>
                     </tr>
                 </c:forEach>
             </table>

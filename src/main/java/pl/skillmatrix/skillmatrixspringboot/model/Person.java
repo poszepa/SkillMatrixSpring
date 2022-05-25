@@ -26,14 +26,14 @@ public class Person {
     @Range(min = 300000, max = 9999999)
     private Integer expertis;
 
-    @Pattern(regexp="^[A-Za-z]*$",message = "Invalid Input")
+    @Pattern(regexp="^[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]*$",message = "Invalid Input")
     @Size(min = 3)
     @NotNull
     @Size(max = 50)
     @Column(name = "last_name")
     private String surname;
 
-    @Pattern(regexp="^[A-Za-z]*$",message = "Invalid Input")
+    @Pattern(regexp="^[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]*$",message = "Invalid Input")
     @Size(min = 3)
     @NotNull
     @Size(max = 50)
@@ -56,7 +56,7 @@ public class Person {
     @JoinColumn(name = "team_id")
     private TeamsInWarehouse teamsInWarehouse;
 
-    @ManyToMany(mappedBy = "personList")
+    @ManyToMany(mappedBy = "personList", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<Skills> skillsList;
 
     private Boolean active = true;

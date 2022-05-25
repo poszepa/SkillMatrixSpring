@@ -35,7 +35,7 @@ public class SkillsController {
     }
 
     @GetMapping("skills/{department}/{skillName}")
-    public String skillWithPeopleList(@PathVariable("department")String department, @PathVariable("skillLName") String skillName, Model model){
+    public String skillWithPeopleList(@PathVariable("department")String department, @PathVariable("skillName") String skillName, Model model){
         if(skillName == null) {
             return "redirect:/skillMatrix/" + department;
         }

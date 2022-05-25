@@ -35,7 +35,7 @@
                         <th>${skill.isRequired}</th>
                         <th>${skill.createTime}</th>
                         <th>${skill.updateTime}</th>
-                        <th><a type="button" href="${skill.nameSkill}">Description</a> </th>
+                        <th><a type="button" href="${skill.departmentsInWarehouse.nameDepartment}/${skill.nameSkill}">Description</a> </th>
                     </tr>
                 </c:forEach>
             </table>
