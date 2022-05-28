@@ -36,8 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/login").permitAll()
-                .antMatchers("/skillMatrix/**").authenticated()
-                .antMatchers("/skillMatrix").authenticated()
+//                .antMatchers("/skillMatrix/**").authenticated()
+//                .antMatchers("/skillMatrix").authenticated()
                 .and()
                 .csrf()
                 .disable();

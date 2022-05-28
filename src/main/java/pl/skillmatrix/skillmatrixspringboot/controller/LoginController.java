@@ -15,4 +15,10 @@ public class LoginController {
         model.addAttribute("user", new User());
         return "home";
     }
+
+    @GetMapping("/register")
+    public String register(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
+    }
 }

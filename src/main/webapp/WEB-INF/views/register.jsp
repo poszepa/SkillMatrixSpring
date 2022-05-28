@@ -20,7 +20,7 @@
 
         .loginForm {
             background-color: white;
-            height: 250px;
+            height: 275px;
             width: 300px;
             padding: 10px;
             margin: 10px;
@@ -40,8 +40,6 @@
             display: none;
         }
 
-
-
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -54,27 +52,30 @@
 <body>
 <div class="body-container">
     <div class="container">
-        <div class="loginForm" <form:form method="post" modelAttribute="user" action="/">
-        <span>Register a new Account</span><br>
-        <label for="emailControll" class="form-label"></label>
-        <form:input path="email" placeholder="email" class="form-control" id="emailControll" type="email">
-        </form:input>
+        <div class="loginForm">
+            <span>Register a new Account</span><br>
+            <form:form method="post" modelAttribute="user" action="/">
+            <label for="emailControl" class="form-label"></label>
+                <form:input path="email" placeholder="email" class="form-control" id="emailControl" type="email"/>
 
-        <label for="passwordControll" class="form-label"></label>
-        <form:input path="password" placeholder="password" class="form-control" id="passwordControll"
-                    type="password"></form:input>
-        <label for="passwordControllRe" class="form-label"></label>
+            <label for="passwordControll" class="form-label"></label>
+                <form:input path="password" placeholder="password" class="form-control" id="passwordControll" type="password"/>
 
-        <input type="password" placeholder="rePassword" class="form-control" id="passwordControllRe">
-        <div class="loginAndRegister">
-            <button class="btn btn-primary" id="btnRegister" type="submit">Register Account</button>
-            </form:form>
+            <label for="passwordControllRe" class="form-label"></label>
+                <input type="password" placeholder="rePassword" class="form-control" id="passwordControllRe">
+
+            <div class="loginAndRegister">
+                <button class="btn btn-primary" id="btnRegister" type="submit">Register Account</button>
+                </form:form>
+            </div>
+
+
+        <div class="alertRegister"></div>
+<%--        close loginForm--%>
         </div>
-        <div class="alertRegister">
-
-        </div>
+<%--    close container--%>
     </div>
-</div>
+<%--close body-container--%>
 </div>
 
 <script>
