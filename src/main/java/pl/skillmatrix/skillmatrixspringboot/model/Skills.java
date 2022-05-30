@@ -34,7 +34,7 @@ public class Skills {
     @ManyToOne(fetch = FetchType.EAGER)
     private DepartmentsInWarehouse departmentsInWarehouse;
 
-    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @ManyToMany
     private List<Person> personList;
 
     @CreationTimestamp

@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.skillmatrix.skillmatrixspringboot.model.*;
 import pl.skillmatrix.skillmatrixspringboot.repository.*;
+import pl.skillmatrix.skillmatrixspringboot.service.PersonService;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -25,6 +26,7 @@ public class PersonController {
     private final GroupsInWarehouseRepository groupsRepository;
     private final TeamsInWarehouseRepository teamRepository;
     private final SkillsRepository skillsRepository;
+    private final PersonService personService;
 
     @GetMapping("person/create")
     public String createPerson(Model model, HttpSession httpSession) {
@@ -40,7 +42,7 @@ public class PersonController {
             return "redirect:/skillMatrix/person/create";
         }
         person.setSkillsList(skillsRepository.findAll());
-        personRepository.save(person);
+        personService.savePerson(person);
         httpSession.setAttribute("successAddPerson", person);
         return "redirect:/skillMatrix/person";
     }

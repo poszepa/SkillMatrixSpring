@@ -1,7 +1,6 @@
 package pl.skillmatrix.skillmatrixspringboot.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.UniqueElements;
 
@@ -11,10 +10,13 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+@Builder
 @Getter
 @Setter
 @Entity
 @Table(name = "Persons")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Person {
 
     @Id
@@ -56,7 +58,7 @@ public class Person {
     @JoinColumn(name = "team_id")
     private TeamsInWarehouse teamsInWarehouse;
 
-    @ManyToMany(mappedBy = "personList", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "personList")
     private List<Skills> skillsList;
 
     private Boolean active = true;

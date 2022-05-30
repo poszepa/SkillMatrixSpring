@@ -34,7 +34,7 @@
                 </thead>
                 <c:forEach items="${persons}" var="person">
                     <tr>
-                        <th>${persons.expertis}</th>
+                        <th>${person.expertis}</th>
                         <th>${person.name}</th>
                         <th>${person.surname}</th>
                         <th>${person.departmentsInWarehouse.nameDepartment}</th>
