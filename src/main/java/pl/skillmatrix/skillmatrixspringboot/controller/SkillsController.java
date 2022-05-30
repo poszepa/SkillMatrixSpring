@@ -13,6 +13,7 @@ import pl.skillmatrix.skillmatrixspringboot.model.Skills;
 import pl.skillmatrix.skillmatrixspringboot.repository.DepartmentsInWarehouseRepository;
 import pl.skillmatrix.skillmatrixspringboot.repository.PersonRepository;
 import pl.skillmatrix.skillmatrixspringboot.repository.SkillsRepository;
+import pl.skillmatrix.skillmatrixspringboot.service.PersonService;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import java.util.List;
 @Controller
 public class SkillsController {
     private final PersonRepository personRepository;
+    private final PersonService personService;
     private final SkillsRepository skillsRepository;
     private final DepartmentsInWarehouseRepository departmentsRepository;
 
@@ -42,7 +44,7 @@ public class SkillsController {
         if(department == null) {
             return "redirect:/skillMatrix/home";
         }
-        model.addAttribute("persons", personRepository.findAllPersonWithDepartmentAndSkill(department,skillName));
+        model.addAttribute("persons", personService.findPersonBySkillNameAndDepartmentName(skillName, department));
         return "/skillMatrix/skillsPersons";
     }
 

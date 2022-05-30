@@ -8,8 +8,12 @@ import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.skillmatrix.skillmatrixspringboot.model.Person;
+import pl.skillmatrix.skillmatrixspringboot.model.Skills;
 import pl.skillmatrix.skillmatrixspringboot.repository.PersonRepository;
 import pl.skillmatrix.skillmatrixspringboot.repository.SkillsRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +37,13 @@ public class PersonService{
                 .teamsInWarehouse(person.getTeamsInWarehouse())
                 .build());
         personRepository.copySkillsToPerson(personRepository.findByExpertis(person.getExpertis()).getId());
+    }
 
+    @Transactional
+    public List<Person> findPersonBySkillNameAndDepartmentName(String skillName, String departmentName){
+       return personRepository.everyPersonToThoseSkillNameAndDepartmentName()
+               .stream().filter(person -> person.getSkillsList().contains(skillsRepository.findSkillByDepartmentNameAndNameSkill(skillName, departmentName)))
+               .collect(Collectors.toList());
     }
 
 }

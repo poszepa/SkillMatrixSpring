@@ -33,6 +33,7 @@
                 </tr>
                 </thead>
                 <c:forEach items="${persons}" var="person">
+                    <c:forEach items="${person.skillsList}" var="skill">
                     <tr>
                         <th>${person.expertis}</th>
                         <th>${person.name}</th>
@@ -41,8 +42,9 @@
                         <th>${person.functionInWarehouse.functionName}</th>
                         <th>${person.groupsInWarehouse.nameGroup}</th>
                         <th>${person.teamsInWarehouse.nameTeam}</th>
-                        <th>${person.skillsList.gainSkill}</th>
+                        <th>${skill.gainSkill}</th>
                     </tr>
+                    </c:forEach>
                 </c:forEach>
             </table>
         </div>

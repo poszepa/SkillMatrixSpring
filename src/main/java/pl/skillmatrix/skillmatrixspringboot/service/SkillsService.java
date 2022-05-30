@@ -2,6 +2,7 @@ package pl.skillmatrix.skillmatrixspringboot.service;
 
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.skillmatrix.skillmatrixspringboot.model.Skills;
@@ -17,6 +18,7 @@ public class SkillsService {
     private final SkillsRepository skillsRepository;
     private final PersonRepository personRepository;
 
+    @Modifying
     @Transactional
     public void modifySkills(Skills skills) {
         Skills skillFromDataBase = skillsRepository.findSkillsById(skills.getId());
@@ -25,5 +27,8 @@ public class SkillsService {
         skillFromDataBase.setNameSkill(skills.getNameSkill());
         skillsRepository.save(skillFromDataBase);
     }
+
+
+
 
 }

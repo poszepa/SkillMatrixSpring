@@ -22,4 +22,7 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
 
     public Person findByExpertis(Integer expertis);
 
+    @Query("SELECT person FROM Person person")
+    public List<Person> everyPersonToThoseSkillNameAndDepartmentName();
+
 }
