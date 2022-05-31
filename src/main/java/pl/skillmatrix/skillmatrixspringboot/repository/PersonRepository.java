@@ -25,4 +25,6 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
     @Query("SELECT person FROM Person person")
     public List<Person> everyPersonToThoseSkillNameAndDepartmentName();
 
+    public Person findPersonById(Integer id);
+
 }

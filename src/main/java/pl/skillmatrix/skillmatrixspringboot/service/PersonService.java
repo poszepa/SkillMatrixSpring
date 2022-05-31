@@ -13,6 +13,7 @@ import pl.skillmatrix.skillmatrixspringboot.repository.PersonRepository;
 import pl.skillmatrix.skillmatrixspringboot.repository.SkillsRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +45,16 @@ public class PersonService{
        return personRepository.everyPersonToThoseSkillNameAndDepartmentName()
                .stream().filter(person -> person.getSkillsList().contains(skillsRepository.findSkillByDepartmentNameAndNameSkill(skillName, departmentName)))
                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    @Modifying
+    public void changeGainedSkill(Integer personID, boolean gainedSkill, String skillName, String departmentName) {
+        Person person = personRepository.findPersonById(personID);
+        person.getSkillsList().stream().filter(skills -> skills.getNameSkill().equals(skillName) &&
+                skills.getDepartmentsInWarehouse().getNameDepartment().equals(departmentName))
+                .forEach(skills -> skills.setGainSkill(gainedSkill));
+        personRepository.save(person);
     }
 
 }

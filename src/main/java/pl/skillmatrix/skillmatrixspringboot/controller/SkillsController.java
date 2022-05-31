@@ -44,7 +44,7 @@ public class SkillsController {
         if(department == null) {
             return "redirect:/skillMatrix/home";
         }
-        model.addAttribute("persons", personService.findPersonBySkillNameAndDepartmentName(skillName, department));
+        model.addAttribute("skills", skillsRepository.findSkillByDepartmentNameAndNameSkill(skillName, department));
         return "/skillMatrix/skillsPersons";
     }
 

@@ -32,8 +32,7 @@
                     <th data-sortable="true">Skilled</th>
                 </tr>
                 </thead>
-                <c:forEach items="${persons}" var="person">
-                    <c:forEach items="${person.skillsList}" var="skill">
+                    <c:forEach items="${skills.personList}" var="person">
                     <tr>
                         <th>${person.expertis}</th>
                         <th>${person.name}</th>
@@ -42,15 +41,13 @@
                         <th>${person.functionInWarehouse.functionName}</th>
                         <th>${person.groupsInWarehouse.nameGroup}</th>
                         <th>${person.teamsInWarehouse.nameTeam}</th>
-                        <th>${skill.gainSkill}</th>
+                        <th><input type="checkbox" class="changeSkill" value="${skills.gainSkill}"></th>
                     </tr>
                     </c:forEach>
-                </c:forEach>
             </table>
         </div>
     </div>
 </div>
-
 <jsp:include page="/WEB-INF/views/static/footer.jsp"/>
 
 </body>
