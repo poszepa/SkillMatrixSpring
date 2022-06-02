@@ -47,8 +47,7 @@ public class SkillsAdminController {
         if(result.hasErrors()) {
             return new ModelAndView("redirect:/skillMatrix/admin/skills/create");
         }
-        skills.setPersonList(personRepository.findAll());
-        skillsRepository.save(skills);
+        skillsService.saveSkill(skills);
         session.setAttribute("successAddSkill", "successAddSkill");
         return new ModelAndView("redirect:/skillMatrix/admin/skills");
     }

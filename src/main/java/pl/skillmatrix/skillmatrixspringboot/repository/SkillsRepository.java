@@ -1,6 +1,7 @@
 package pl.skillmatrix.skillmatrixspringboot.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.parameters.P;
@@ -35,6 +36,13 @@ public interface SkillsRepository extends JpaRepository<Skills, Integer> {
 
     @Query("SELECT skill FROM Skills skill WHERE skill.nameSkill = :nameSkill AND skill.departmentsInWarehouse.nameDepartment = :departmentName")
     public Skills findSkillByDepartmentNameAndNameSkill(@Param("nameSkill")String nameSkill, @Param("departmentName")String departmentName);
+
+    @Query("SELECT skill FROM Skills skill WHERE skill.nameSkill = :nameSkill AND skill.departmentsInWarehouse.id = :departmentID")
+    public Skills findSkillByDepartmentIDNameAndNameSkill(@Param("nameSkill")String nameSkill, @Param("departmentID")Integer departmentID);
+
+    @Modifying
+    @Query(value = "INSERT INTO skill_matrix.owned_skill (gain_skill, skill_id, person_id) SELECT false, :skillId, id FROM skill_matrix.persons", nativeQuery = true)
+    public void copySkillsToPersonWhileCreateNewSkills(@Param("skillId")Integer id);
 
 
 }

@@ -41,7 +41,7 @@
                         <th>${person.functionInWarehouse.functionName}</th>
                         <th>${person.groupsInWarehouse.nameGroup}</th>
                         <th>${person.teamsInWarehouse.nameTeam}</th>
-                        <th><input type="checkbox" class="changeSkill" value="${skills.gainSkill}"></th>
+                        <th>${skills.gainSkill}</th>
                     </tr>
                     </c:forEach>
             </table>

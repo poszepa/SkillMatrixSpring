@@ -63,4 +63,7 @@ public class Person {
 
     private Boolean active = true;
 
+    @OneToMany(mappedBy = "person")
+    private List<OwnedSkill> ownedSkills;
+
 }

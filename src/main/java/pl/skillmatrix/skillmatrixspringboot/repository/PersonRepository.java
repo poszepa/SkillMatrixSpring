@@ -17,8 +17,8 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
     public List<Person> findAllPersonWithDepartmentAndSkill(@Param("departmentName")String departmentName, @Param("nameSkill")String skillName);
 
     @Modifying
-    @Query(value = "INSERT INTO skill_matrix.skills_person_list (skills_list_id, person_list_id) SELECT skill_matrix.skills.id, :personId FROM skill_matrix.skills", nativeQuery = true)
-    public void copySkillsToPerson(@Param("personId")Integer id);
+    @Query(value = "INSERT INTO skill_matrix.owned_skill (gain_skill, person_id, skill_id) SELECT false,:personId, id FROM skill_matrix.skills", nativeQuery = true)
+    public void copySkillsToPersonWhileCreateNewPerson(@Param("personId")Integer id);
 
     public Person findByExpertis(Integer expertis);
 

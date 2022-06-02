@@ -1,8 +1,6 @@
 package pl.skillmatrix.skillmatrixspringboot.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,7 +13,10 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Skills {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,13 +29,11 @@ public class Skills {
     @NotNull
     private Boolean isRequired = false;
 
-    @NotNull
-    private Boolean gainSkill = false;
-
     @ManyToOne(fetch = FetchType.EAGER)
     private DepartmentsInWarehouse departmentsInWarehouse;
 
     @ManyToMany
+    @ToString.Exclude
     private List<Person> personList;
 
     @CreationTimestamp
@@ -44,6 +43,10 @@ public class Skills {
     @UpdateTimestamp
     @Column(name = "update_time")
     private LocalDate updateTime;
+
+    @OneToMany(mappedBy = "skills")
+    @ToString.Exclude
+    private List<OwnedSkill> ownedSkills;
 
 
 
