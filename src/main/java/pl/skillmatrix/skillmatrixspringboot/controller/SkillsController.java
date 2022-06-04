@@ -2,20 +2,15 @@ package pl.skillmatrix.skillmatrixspringboot.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.skillmatrix.skillmatrixspringboot.model.*;
 import pl.skillmatrix.skillmatrixspringboot.repository.*;
 import pl.skillmatrix.skillmatrixspringboot.service.OwnedSkillService;
-import pl.skillmatrix.skillmatrixspringboot.service.PersonService;
-import pl.skillmatrix.skillmatrixspringboot.service.SkillsService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
