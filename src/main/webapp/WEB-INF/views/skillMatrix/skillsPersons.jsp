@@ -32,22 +32,35 @@
                     <th data-sortable="true">Skilled</th>
                 </tr>
                 </thead>
-                    <c:forEach items="${skills.personList}" var="person">
+                    <c:forEach items="${ownedskills}" var="ownedskill">
                     <tr>
-                        <th>${person.expertis}</th>
-                        <th>${person.name}</th>
-                        <th>${person.surname}</th>
-                        <th>${person.departmentsInWarehouse.nameDepartment}</th>
-                        <th>${person.functionInWarehouse.functionName}</th>
-                        <th>${person.groupsInWarehouse.nameGroup}</th>
-                        <th>${person.teamsInWarehouse.nameTeam}</th>
-                        <th>${skills.gainSkill}</th>
+                        <th>${ownedskill.person.expertis}</th>
+                        <th>${ownedskill.person.name}</th>
+                        <th>${ownedskill.person.surname}</th>
+                        <th>${ownedskill.person.departmentsInWarehouse.nameDepartment}</th>
+                        <th>${ownedskill.person.functionInWarehouse.functionName}</th>
+                        <th>${ownedskill.person.groupsInWarehouse.nameGroup}</th>
+                        <th>${ownedskill.person.teamsInWarehouse.nameTeam}</th>
+                        <th>
+                            <form method="post">
+                                <input type="hidden" value="${ownedskill.id}" name="id"/>
+                                <c:if test="${ownedskill.gainSkill != true}">
+                                    <input type="checkbox" value="${ownedskill.gainSkill}" name="gainSkill" class="Skilled" onchange="this.form.submit()"/>
+                                </c:if>
+
+                                <c:if test="${ownedskill.gainSkill == true}">
+                                    <input type="checkbox" value="${ownedskill.gainSkill}" name="gainSkill" class="Skilled" checked="checked" onchange="this.form.submit()"/>
+                                </c:if>
+                            </form>
+                        </th>
                     </tr>
                     </c:forEach>
             </table>
         </div>
     </div>
 </div>
+
+
 <jsp:include page="/WEB-INF/views/static/footer.jsp"/>
 
 </body>
