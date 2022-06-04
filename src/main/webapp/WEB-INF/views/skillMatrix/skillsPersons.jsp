@@ -15,20 +15,20 @@
         <jsp:include page="/WEB-INF/views/static/leftBar.jsp"/>
         <div class="col-sm-8 text-left">
             <form method="post">
-                <select name="department">
+                <select name="department" id="departmentSelect" onchange="showAndHideGroup()">
                     <option name="department" value="">>Choose department<</option>
                     <option name="department" value="everyPeople">Every people</option>
                     <c:forEach items="${departments}" var="department">
                         <option name="department" value="${department.nameDepartment}">${department.nameDepartment}</option>
                     </c:forEach>
                 </select>
-                <select name="group">
+                <select name="group" id="groupSelect" onchange="showAndHideTeam()">
                     <option name="group" value="">>Choose group<</option>
                     <c:forEach items="${groups}" var="group">
                         <option name="group" value="${group.nameGroup}">${group.nameGroup}</option>
                     </c:forEach>
                 </select>
-                <select name="team">
+                <select name="team" id="teamSelect">
                     <option name="team" value="">>Choose Team<</option>
                     <c:forEach items="${teams}" var="team">
                         <option name="team" value="${team.nameTeam}">${team.nameTeam}</option>
@@ -83,6 +83,31 @@
     </div>
 </div>
 
+<script>
+    const departmentSelect = document.getElementById("departmentSelect");
+    const groupSelect = document.getElementById("groupSelect");
+    const teamSelect = document.getElementById("teamSelect");
+
+    function showAndHideGroup() {
+        groupSelect.style.display = "none";
+        teamSelect.style.display = "none";
+
+        if(departmentSelect.value !== "everyPeople" && departmentSelect.value !== "") {
+            groupSelect.style.display = "inline-block";
+        }
+    }
+
+    function showAndHideTeam() {
+        teamSelect.style.display = "none";
+        if(groupSelect.value !== "") {
+            teamSelect.style.display = "inline-block";
+        }
+    }
+
+    showAndHideGroup();
+
+
+</script>
 
 <jsp:include page="/WEB-INF/views/static/footer.jsp"/>
 
