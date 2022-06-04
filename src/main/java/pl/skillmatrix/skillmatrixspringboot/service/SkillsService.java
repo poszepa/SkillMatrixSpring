@@ -5,10 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import pl.skillmatrix.skillmatrixspringboot.model.Person;
 import pl.skillmatrix.skillmatrixspringboot.model.Skills;
-import pl.skillmatrix.skillmatrixspringboot.repository.PersonRepository;
-import pl.skillmatrix.skillmatrixspringboot.repository.SkillsRepository;
+import pl.skillmatrix.skillmatrixspringboot.repository.*;
 
 import java.util.Optional;
 
@@ -18,6 +18,10 @@ import java.util.Optional;
 public class SkillsService {
     private final SkillsRepository skillsRepository;
     private final PersonRepository personRepository;
+    private final OwnedSkillRepository ownedSkillRepository;
+    private final DepartmentsInWarehouseRepository departmentRepository;
+    private final GroupsInWarehouseRepository groupRepository;
+    private final TeamsInWarehouseRepository teamRepository;
 
     @Modifying
     @Transactional
@@ -43,6 +47,8 @@ public class SkillsService {
                         skill.getDepartmentsInWarehouse().getId()
                 ).getId());
     }
+
+
 
 
 

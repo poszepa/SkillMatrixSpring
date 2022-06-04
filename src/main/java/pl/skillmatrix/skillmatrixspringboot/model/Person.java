@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -43,7 +44,7 @@ public class Person {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "deparments_id")
+    @JoinColumn(name = "departments_id")
     private DepartmentsInWarehouse departmentsInWarehouse;
 
     @ManyToOne
@@ -65,5 +66,6 @@ public class Person {
 
     @OneToMany(mappedBy = "person")
     private List<OwnedSkill> ownedSkills;
+
 
 }

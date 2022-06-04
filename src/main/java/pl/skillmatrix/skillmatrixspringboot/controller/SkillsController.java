@@ -7,15 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.skillmatrix.skillmatrixspringboot.model.DepartmentsInWarehouse;
-import pl.skillmatrix.skillmatrixspringboot.model.OwnedSkill;
-import pl.skillmatrix.skillmatrixspringboot.model.Skills;
-import pl.skillmatrix.skillmatrixspringboot.repository.DepartmentsInWarehouseRepository;
-import pl.skillmatrix.skillmatrixspringboot.repository.OwnedSkillRepository;
-import pl.skillmatrix.skillmatrixspringboot.repository.PersonRepository;
-import pl.skillmatrix.skillmatrixspringboot.repository.SkillsRepository;
+import pl.skillmatrix.skillmatrixspringboot.model.*;
+import pl.skillmatrix.skillmatrixspringboot.repository.*;
 import pl.skillmatrix.skillmatrixspringboot.service.OwnedSkillService;
 import pl.skillmatrix.skillmatrixspringboot.service.PersonService;
+import pl.skillmatrix.skillmatrixspringboot.service.SkillsService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,12 +22,12 @@ import java.util.List;
 @RequestMapping("skillMatrix")
 @Controller
 public class SkillsController {
-    private final PersonRepository personRepository;
-    private final PersonService personService;
     private final SkillsRepository skillsRepository;
     private final DepartmentsInWarehouseRepository departmentsRepository;
-    private final OwnedSkillRepository ownedSkillRepository;
     private final OwnedSkillService ownedSkillService;
+    private final TeamsInWarehouseRepository teamRepository;
+    private final GroupsInWarehouseRepository groupRepository;
+
 
 
     @GetMapping("skills/{department}")
@@ -44,14 +40,31 @@ public class SkillsController {
     }
 
     @GetMapping("skills/{department}/{skillName}")
-    public String skillWithPeopleList(@PathVariable("department")String department, @PathVariable("skillName") String skillName, Model model){
-        if(skillName == null) {
-            return "redirect:/skillMatrix/" + department;
+    public String skillWithPeopleList(@PathVariable("department")String department, @PathVariable("skillName") String skillName, Model model, HttpSession session){
+        String personDepartment = "";
+        String personGroup = "";
+        String personTeam = "";
+
+        if(session.getAttribute("everyPeople") != null) {
+
+            session.removeAttribute("departmentPerson");
+            session.removeAttribute("groupPerson");
+            session.removeAttribute("teamPerson");
+            model.addAttribute("ownedskills",ownedSkillService.showEveryPersonWithSkill(skillName, department));
+            return "/skillMatrix/skillsPersons";
         }
-        if(department == null) {
-            return "redirect:/skillMatrix/home";
+
+        if(session.getAttribute("departmentPerson") != null) {
+            personDepartment = session.getAttribute("departmentPerson").toString();
         }
-        model.addAttribute("ownedskills", ownedSkillRepository.findAllPersonBySkillID(skillsRepository.findSkillByDepartmentNameAndNameSkill(skillName, department).getId()));
+        if(session.getAttribute("groupPerson") != null) {
+            personGroup = session.getAttribute("groupPerson").toString();
+        }
+        if(session.getAttribute("teamPerson") != null) {
+            personTeam = session.getAttribute("teamPerson").toString();
+        }
+
+        model.addAttribute("ownedskills",ownedSkillService.showPersonWithSkill(personDepartment, personGroup, personTeam, skillName, department));
         return "/skillMatrix/skillsPersons";
     }
 
@@ -62,6 +75,41 @@ public class SkillsController {
         return "redirect:/skillMatrix/skills/" + department + "/" + skillName;
     }
 
+    @PostMapping(value = "skills/{department}/{skillName}", params = "seachGroup")
+    public String redirectToCorrectAddressesWithFilter(HttpServletRequest req, @PathVariable("department")String department, @PathVariable("skillName")String skillName, HttpSession session){
+        String departmentFromForm = req.getParameter("department");
+        String groupFromForm = req.getParameter("group");
+        String teamFromForm = req.getParameter("team");
+
+        if(departmentFromForm.equals("everyPeople")) {
+            session.setAttribute("everyPeople", departmentFromForm);
+            return "redirect:/skillMatrix/skills/" + department + "/" + skillName;
+        }
+
+        if(!departmentFromForm.isEmpty() && !groupFromForm.isEmpty() && !teamFromForm.isEmpty()) {
+            session.setAttribute("departmentPerson", departmentFromForm);
+            session.setAttribute("groupPerson", groupFromForm);
+            session.setAttribute("teamPerson", teamFromForm);
+            session.removeAttribute("everyPeople");
+            return "redirect:/skillMatrix/skills/" + department + "/" + skillName;
+        }
+        if(!departmentFromForm.isEmpty() && !groupFromForm.isEmpty()) {
+            session.setAttribute("departmentPerson", departmentFromForm);
+            session.setAttribute("groupPerson", groupFromForm);
+            session.removeAttribute("everyPeople");
+            return "redirect:/skillMatrix/skills/" + department + "/" + skillName;
+        }
+        if(!departmentFromForm.isEmpty()){
+            session.setAttribute("departmentPerson", departmentFromForm);
+            session.removeAttribute("everyPeople");
+            return "redirect:/skillMatrix/skills/" + department + "/" + skillName;
+        }
+        return "redirect:/skillMatrix/skills/" + department + "/" + skillName;
+    }
+
+
+
+
     @ModelAttribute("departments")
     public List<DepartmentsInWarehouse> getAllDepartments() {
         return departmentsRepository.findAll();
@@ -70,6 +118,15 @@ public class SkillsController {
     @ModelAttribute("skills")
     public List<Skills> getAllSkills() {
         return skillsRepository.findAll();
+    }
+    @ModelAttribute("teams")
+    public List<TeamsInWarehouse> getAllTeam() {
+        return teamRepository.findAll();
+    }
+
+    @ModelAttribute("groups")
+    public List<GroupsInWarehouse> getAllGroup() {
+        return groupRepository.findAll();
     }
 
 
