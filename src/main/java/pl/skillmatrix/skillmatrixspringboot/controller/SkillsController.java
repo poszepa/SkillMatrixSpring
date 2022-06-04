@@ -2,19 +2,24 @@ package pl.skillmatrix.skillmatrixspringboot.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import pl.skillmatrix.skillmatrixspringboot.model.DepartmentsInWarehouse;
+import pl.skillmatrix.skillmatrixspringboot.model.OwnedSkill;
 import pl.skillmatrix.skillmatrixspringboot.model.Skills;
 import pl.skillmatrix.skillmatrixspringboot.repository.DepartmentsInWarehouseRepository;
+import pl.skillmatrix.skillmatrixspringboot.repository.OwnedSkillRepository;
 import pl.skillmatrix.skillmatrixspringboot.repository.PersonRepository;
 import pl.skillmatrix.skillmatrixspringboot.repository.SkillsRepository;
+import pl.skillmatrix.skillmatrixspringboot.service.OwnedSkillService;
 import pl.skillmatrix.skillmatrixspringboot.service.PersonService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -25,6 +30,8 @@ public class SkillsController {
     private final PersonService personService;
     private final SkillsRepository skillsRepository;
     private final DepartmentsInWarehouseRepository departmentsRepository;
+    private final OwnedSkillRepository ownedSkillRepository;
+    private final OwnedSkillService ownedSkillService;
 
 
     @GetMapping("skills/{department}")
@@ -44,8 +51,15 @@ public class SkillsController {
         if(department == null) {
             return "redirect:/skillMatrix/home";
         }
-        model.addAttribute("skills", skillsRepository.findSkillByDepartmentNameAndNameSkill(skillName, department));
+        model.addAttribute("ownedskills", ownedSkillRepository.findAllPersonBySkillID(skillsRepository.findSkillByDepartmentNameAndNameSkill(skillName, department).getId()));
         return "/skillMatrix/skillsPersons";
+    }
+
+    @PostMapping("skills/{department}/{skillName}")
+    public String skillWithPeopleList(HttpServletRequest req, @PathVariable("department")String department,
+                                      @PathVariable("skillName")String skillName) {
+        ownedSkillService.changeSkilledBoolean(Long.parseLong(req.getParameter("id")));
+        return "redirect:/skillMatrix/skills/" + department + "/" + skillName;
     }
 
     @ModelAttribute("departments")
@@ -57,5 +71,7 @@ public class SkillsController {
     public List<Skills> getAllSkills() {
         return skillsRepository.findAll();
     }
+
+
 
 }
