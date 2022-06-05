@@ -44,5 +44,8 @@ public interface SkillsRepository extends JpaRepository<Skills, Integer> {
     @Query(value = "INSERT INTO skill_matrix.owned_skill (gain_skill, skill_id, person_id) SELECT false, :skillId, id FROM skill_matrix.persons", nativeQuery = true)
     public void copySkillsToPersonWhileCreateNewSkills(@Param("skillId")Integer id);
 
+    @Query(value = "SELECT * FROM skill_matrix.skills ORDER BY update_time DESC LIMIT 10", nativeQuery = true)
+    public List<Skills> skillsLatestTenUpdatedSkills();
+
 
 }

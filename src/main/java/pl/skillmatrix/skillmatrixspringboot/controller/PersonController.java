@@ -49,12 +49,13 @@ public class PersonController {
 
     @GetMapping("person")
     public String showAllPerson(Model model) {
-        model.addAttribute("allPerson", personRepository.findAll());
+        model.addAttribute("allPerson", personRepository.findPersonByActiveTrue());
         return "skillMatrix/person";
     }
 
     @GetMapping("home")
-    public String home() {
+    public String home(Model model) {
+        model.addAttribute("skills", skillsRepository.skillsLatestTenUpdatedSkills());
         return "/skillMatrix/homePageAfterLogin";
     }
 
@@ -91,7 +92,9 @@ public class PersonController {
         if(!personRepository.existsById(person.getId())) {
             return "redirect:/skillMatrix/person/" + person.getId();
         }
-        personRepository.delete(person);
+        Person personFromDB = personRepository.findPersonById(person.getId());
+        personFromDB.setActive(false);
+        personRepository.save(personFromDB);
         return "redirect:/skillMatrix/person";
     }
 

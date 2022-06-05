@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import pl.skillmatrix.skillmatrixspringboot.model.OwnedSkill;
 import pl.skillmatrix.skillmatrixspringboot.repository.*;
 

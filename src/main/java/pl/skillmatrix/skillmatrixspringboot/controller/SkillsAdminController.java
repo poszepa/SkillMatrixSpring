@@ -16,6 +16,7 @@ import pl.skillmatrix.skillmatrixspringboot.service.SkillsService;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,7 +84,7 @@ public class SkillsAdminController {
 
     @PostMapping("/skills/remove")
     public String removedSkill(@ModelAttribute("skill")Skills skills){
-        skillsRepository.delete(skills);
+            skillsRepository.delete(skills);
         return "redirect:/skillMatrix/admin/skills";
     }
 

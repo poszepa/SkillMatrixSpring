@@ -26,14 +26,12 @@
                 <tr>
                     <th data-sortable="true">Name</th>
                     <th data-sortable="true">Edit</th>
-                    <th data-sortable="true">Remove</th>
                 </tr>
                 </thead>
                 <c:forEach items="${departments}" var="department">
                     <tr>
                         <td><input type="text" name="departmentName" value="${department.nameDepartment}"/>
                         <td><a type="button" href="/skillMatrix/admin/departments/edit/${department.id}">EDIT</a></td>
-                        <td><a type="button" href="/skillMatrix/admin/departments/remove/${department.id}">Remove</a></td>
                     </tr>
                 </c:forEach>
             </table>

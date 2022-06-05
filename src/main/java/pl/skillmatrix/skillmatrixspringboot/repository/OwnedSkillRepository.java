@@ -3,7 +3,6 @@ package pl.skillmatrix.skillmatrixspringboot.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.parameters.P;
 import pl.skillmatrix.skillmatrixspringboot.model.OwnedSkill;
 
 import java.util.List;
@@ -16,6 +15,7 @@ public interface OwnedSkillRepository extends JpaRepository<OwnedSkill, Integer>
     @Query(value = "SELECT skill_matrix.owned_skill.person_id,\n" +
             "       owned_skill.id,\n" +
             "       p.id,\n" +
+            "       p.active,\n" +
             "       p.expertis,\n" +
             "       p.first_name,\n" +
             "       p.last_name,\n" +
@@ -32,12 +32,13 @@ public interface OwnedSkillRepository extends JpaRepository<OwnedSkill, Integer>
             "JOIN function_in_warehouse fiw on p.function_id = fiw.id\n" +
             "JOIN groups_in_warehouse giw on p.groups_id = giw.id\n" +
             "JOIN teams_in_warehouse tiw on p.team_id = tiw.id\n" +
-            "WHERE skill_id = :id", nativeQuery = true)
+            "WHERE skill_id = :id AND p.active = true", nativeQuery = true)
     public List<OwnedSkill> findAllPersonBySkillID(@Param("id")Integer id);
 
     @Query(value = "SELECT skill_matrix.owned_skill.person_id,\n" +
             "       owned_skill.id,\n" +
             "       p.id,\n" +
+            "       p.active,\n" +
             "       p.departments_id,\n" +
             "       p.expertis,\n" +
             "       p.first_name,\n" +
@@ -55,12 +56,13 @@ public interface OwnedSkillRepository extends JpaRepository<OwnedSkill, Integer>
             "JOIN function_in_warehouse fiw on p.function_id = fiw.id\n" +
             "JOIN groups_in_warehouse giw on p.groups_id = giw.id\n" +
             "JOIN teams_in_warehouse tiw on p.team_id = tiw.id\n" +
-            "WHERE skill_id = :id AND p.departments_id = :departmentID", nativeQuery = true)
+            "WHERE skill_id = :id AND p.departments_id = :departmentID AND p.active = true", nativeQuery = true)
     public List<OwnedSkill> findAllPersonBySkillIDAndDepartmentName(@Param("id")Integer id, @Param("departmentID")Integer departmentID);
 
     @Query(value = "SELECT skill_matrix.owned_skill.person_id,\n" +
             "       owned_skill.id,\n" +
             "       p.id,\n" +
+            "       p.active,\n" +
             "       p.departments_id,\n" +
             "       p.groups_id,\n" +
             "       p.expertis,\n" +
@@ -79,7 +81,7 @@ public interface OwnedSkillRepository extends JpaRepository<OwnedSkill, Integer>
             "JOIN function_in_warehouse fiw on p.function_id = fiw.id\n" +
             "JOIN groups_in_warehouse giw on p.groups_id = giw.id\n" +
             "JOIN teams_in_warehouse tiw on p.team_id = tiw.id\n" +
-            "WHERE skill_id = :id AND p.departments_id = :departmentID\n" +
+            "WHERE skill_id = :id AND p.active = true AND p.departments_id = :departmentID\n" +
             "AND p.groups_id = :groupID", nativeQuery = true)
     public List<OwnedSkill> findAllPersonBySkillIDAndDepartmentIDAndGroupID(@Param("id")Integer id,
                                                                             @Param("departmentID")Integer departmentID,
@@ -88,6 +90,7 @@ public interface OwnedSkillRepository extends JpaRepository<OwnedSkill, Integer>
     @Query(value = "SELECT skill_matrix.owned_skill.person_id,\n" +
             "       owned_skill.id,\n" +
             "       p.id,\n" +
+            "       p.active,\n" +
             "       p.departments_id,\n" +
             "       p.groups_id,\n" +
             "       p.team_id,\n" +
@@ -107,7 +110,7 @@ public interface OwnedSkillRepository extends JpaRepository<OwnedSkill, Integer>
             "JOIN function_in_warehouse fiw on p.function_id = fiw.id\n" +
             "JOIN groups_in_warehouse giw on p.groups_id = giw.id\n" +
             "JOIN teams_in_warehouse tiw on p.team_id = tiw.id\n" +
-            "WHERE skill_id = :id AND p.departments_id = :departmentID\n" +
+            "WHERE skill_id = :id AND p.active = true AND p.departments_id = :departmentID\n" +
             "AND p.groups_id = :groupID\n" +
             "AND p.team_id = :teamID", nativeQuery = true)
     public List<OwnedSkill> findAllPersonBySkillIDAndDepartmentIDAndGroupIDAndTeamID(

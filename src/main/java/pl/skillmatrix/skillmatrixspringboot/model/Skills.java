@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -38,11 +39,11 @@ public class Skills {
 
     @CreationTimestamp
     @Column(name = "create_time")
-    private LocalDate createTime;
+    private LocalDateTime createTime;
 
     @UpdateTimestamp
     @Column(name = "update_time")
-    private LocalDate updateTime;
+    private LocalDateTime updateTime;
 
     @OneToMany(mappedBy = "skills")
     @ToString.Exclude

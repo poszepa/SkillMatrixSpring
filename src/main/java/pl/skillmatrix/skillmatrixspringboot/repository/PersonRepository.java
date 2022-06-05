@@ -27,4 +27,6 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
 
     public Person findPersonById(Integer id);
 
+    public List<Person> findPersonByActiveTrue();
+
 }

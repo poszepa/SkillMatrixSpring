@@ -26,14 +26,12 @@
                 <tr>
                     <th data-sortable="true">Name</th>
                     <th data-sortable="true">Edit</th>
-                    <th data-sortable="true">Remove</th>
                 </tr>
                 </thead>
                 <c:forEach items="${functions}" var="function">
                     <tr>
                         <td><input type="text" name="functionName" value="${function.functionName}"/>
                         <td><a type="button" href="/skillMatrix/admin/function/edit/${function.id}">EDIT</a></td>
-                        <td><a type="button" href="/skillMatrix/admin/function/remove/${function.id}">Remove</a></td>
                     </tr>
                 </c:forEach>
             </table>
