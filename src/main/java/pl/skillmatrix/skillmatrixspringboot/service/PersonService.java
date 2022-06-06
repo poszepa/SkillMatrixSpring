@@ -40,13 +40,6 @@ public class PersonService{
         personRepository.copySkillsToPersonWhileCreateNewPerson(personRepository.findByExpertis(person.getExpertis()).getId());
     }
 
-    @Transactional
-    public List<Person> findPersonBySkillNameAndDepartmentName(String skillName, String departmentName){
-       return personRepository.everyPersonToThoseSkillNameAndDepartmentName()
-               .stream().filter(person -> person.getSkillsList().contains(skillsRepository.findSkillByDepartmentNameAndNameSkill(skillName, departmentName)))
-               .collect(Collectors.toList());
-    }
-
 
     @Transactional
     public List<Person> showPerson(String personDepartment, String personGroup, String personTeam) {
