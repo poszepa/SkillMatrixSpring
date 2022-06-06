@@ -75,6 +75,32 @@
     </div>
 </div>
 
+<script>
+    const departmentSelect = document.getElementById("departmentSelect");
+    const groupSelect = document.getElementById("groupSelect");
+    const teamSelect = document.getElementById("teamSelect");
+
+    function showAndHideGroup() {
+        groupSelect.style.display = "none";
+        teamSelect.style.display = "none";
+
+        if(departmentSelect.value !== "everyPeople" && departmentSelect.value !== "") {
+            groupSelect.style.display = "inline-block";
+        }
+    }
+
+    function showAndHideTeam() {
+        teamSelect.style.display = "none";
+        if(groupSelect.value !== "") {
+            teamSelect.style.display = "inline-block";
+        }
+    }
+
+    showAndHideGroup();
+
+
+</script>
+
 <jsp:include page="/WEB-INF/views/static/footer.jsp"/>
 
 </body>

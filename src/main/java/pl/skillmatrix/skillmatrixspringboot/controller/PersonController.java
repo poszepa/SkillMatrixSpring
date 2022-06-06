@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.skillmatrix.skillmatrixspringboot.model.*;
 import pl.skillmatrix.skillmatrixspringboot.repository.*;
+import pl.skillmatrix.skillmatrixspringboot.service.OwnedSkillService;
 import pl.skillmatrix.skillmatrixspringboot.service.PersonService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ public class PersonController {
     private final TeamsInWarehouseRepository teamRepository;
     private final SkillsRepository skillsRepository;
     private final PersonService personService;
+    private final OwnedSkillService ownedSkillService;
 
     @GetMapping("person/create")
     public String createPerson(Model model, HttpSession httpSession) {
@@ -118,6 +120,7 @@ public class PersonController {
     public String descriptionPerson(@PathVariable("id") String id, Model model) {
         Optional<Person> person = personRepository.findById(Integer.parseInt(id));
         model.addAttribute("person", person);
+        model.addAttribute("percentSkill", ownedSkillService.getPercentValueFromEverySkillsRequired(Integer.parseInt(id)));
         return "skillMatrix/personDescription";
     }
 

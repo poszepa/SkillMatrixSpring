@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import pl.skillmatrix.skillmatrixspringboot.model.OwnedSkill;
+import pl.skillmatrix.skillmatrixspringboot.model.Person;
 
 import java.util.List;
 
@@ -118,4 +119,10 @@ public interface OwnedSkillRepository extends JpaRepository<OwnedSkill, Integer>
             @Param("departmentID")Integer departmentID,
             @Param("groupID")Integer groupID,
             @Param("teamID")Integer teamID);
+
+    @Query("SELECT ownedSkill FROM OwnedSkill  ownedSkill " +
+            "WHERE ownedSkill.person.id = :personID AND " +
+            "ownedSkill.skills.isRequired = true AND " +
+            "ownedSkill.skills.departmentsInWarehouse.id = :departmentID")
+    public List<OwnedSkill> findOwnedSkillByPersonIDAndDepartmentID(@Param("personID")Integer personID, @Param("departmentID")Integer departmentID);
 }

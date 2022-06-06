@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.skillmatrix.skillmatrixspringboot.model.DepartmentsInWarehouse;
 import pl.skillmatrix.skillmatrixspringboot.model.OwnedSkill;
 import pl.skillmatrix.skillmatrixspringboot.repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +42,6 @@ public class OwnedSkillService {
     @Transactional
     public List<OwnedSkill> showPersonWithSkill(String personDepartment, String personGroup, String personTeam, String skillName, String department) {
 
-
         if (!personDepartment.isEmpty() && !personGroup.isEmpty() && !personTeam.isEmpty()) {
             return ownedSkillRepository.findAllPersonBySkillIDAndDepartmentIDAndGroupIDAndTeamID(
                             skillsRepository.findSkillByDepartmentNameAndNameSkill(skillName, department).getId(),
@@ -68,5 +69,32 @@ public class OwnedSkillService {
     public List<OwnedSkill> showEveryPersonWithSkill(String skillName, String department) {
         return ownedSkillRepository.findAllPersonBySkillID(skillsRepository.findSkillByDepartmentNameAndNameSkill(skillName, department).getId());
 
+    }
+
+
+    public Double getPercentSkilledFromSkillRequired(Integer personID, String departmentName) {
+        List<OwnedSkill> listOfAllSkillsDependencyWithPersonID = ownedSkillRepository.findOwnedSkillByPersonIDAndDepartmentID(
+                personID,
+                departmentRepository.findByNameDepartment(departmentName).getId());
+        List<OwnedSkill> listOfGainedSkills = listOfAllSkillsDependencyWithPersonID
+                .stream()
+                .filter(ownedSkill -> ownedSkill.isGainSkill() == true)
+                .collect(Collectors.toList());
+
+        if(listOfAllSkillsDependencyWithPersonID.size() == 0) {
+            return 0.0;
+        }
+
+        return Math.round((listOfGainedSkills.size() / listOfAllSkillsDependencyWithPersonID.size()) * 100.0) / 100.0;
+    }
+
+    public List<Double> getPercentValueFromEverySkillsRequired(Integer personID) {
+        List<DepartmentsInWarehouse> departmentsInWarehouseList = departmentRepository.findAll();
+        List<Double> returnListPercentValueForPerson = new ArrayList<>();
+
+        for(int i = 0 ; i < departmentsInWarehouseList.size(); i++) {
+            returnListPercentValueForPerson.add(getPercentSkilledFromSkillRequired(personID, departmentsInWarehouseList.get(i).getNameDepartment()));
+        }
+        return returnListPercentValueForPerson;
     }
 }

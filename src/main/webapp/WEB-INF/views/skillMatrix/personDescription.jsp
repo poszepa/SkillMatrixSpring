@@ -6,6 +6,13 @@
 <head>
   <title>Person Description</title>
   <jsp:include page="/WEB-INF/views/static/headPreference.jsp"/>
+  <style>
+    .fieldChart{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/static/navbar.jsp"/>
@@ -56,37 +63,81 @@
           <a type="button" href="/skillMatrix/person/remove/${id}" class="btn btn-primary">Remove person</a>
         </div>
       </form:form>
+      <div class="fieldChart">
+        <div style="height: 500px; width: 500px">
+          <canvas id="requiredSkillChart"></canvas>
+        </div>
+        <div style="height: 500px; width: 500px">
+          <canvas id="everySkillChart"></canvas>
+        </div>
+      </div>
+
       </div>
     </div>
+
   </div>
 </div>
+<c:forEach items="${percentSkill}" var="percentskill">
+  ${percentskill}
+</c:forEach>
 
-<script>
-  const departmentSelect = document.getElementById("departmentSelect");
-  const groupSelect = document.getElementById("groupSelect");
-  const teamSelect = document.getElementById("teamSelect");
-
-  function showAndHideGroup() {
-    groupSelect.style.display = "none";
-    teamSelect.style.display = "none";
-
-    if(departmentSelect.value !== "everyPeople" && departmentSelect.value !== "") {
-      groupSelect.style.display = "inline-block";
-    }
-  }
-
-  function showAndHideTeam() {
-    teamSelect.style.display = "none";
-    if(groupSelect.value !== "") {
-      teamSelect.style.display = "inline-block";
-    }
-  }
-
-  showAndHideGroup();
-
-
-</script>
 <jsp:include page="/WEB-INF/views/static/footer.jsp"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+<%--  CONFIG to REQUIRED SKILL --%>
+const labels = [
+        <c:forEach items="${departments}" var="department">
+          '${department.nameDepartment}',
+        </c:forEach>
+]
+
+const data = {
+  labels: labels,
+  datasets: [{
+    label: 'Skill Required',
+    data: [
+    ],
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(255, 159, 64, 0.2)',
+      'rgba(255, 205, 86, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(153, 102, 255, 0.2)',
+      'rgba(201, 203, 207, 0.2)'
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',
+      'rgb(255, 159, 64)',
+      'rgb(255, 205, 86)',
+      'rgb(75, 192, 192)',
+      'rgb(54, 162, 235)',
+      'rgb(153, 102, 255)',
+      'rgb(201, 203, 207)'
+    ],
+    borderWidth: 1
+  }]
+};
+
+const config = {
+  type: 'bar',
+  data: data,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  },
+};
+
+const myChart = new Chart(
+        document.getElementById('requiredSkillChart'),
+        config
+);
+</script>
+
+
 
 </body>
 </html>

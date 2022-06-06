@@ -47,5 +47,8 @@ public interface SkillsRepository extends JpaRepository<Skills, Integer> {
     @Query(value = "SELECT * FROM skill_matrix.skills ORDER BY update_time DESC LIMIT 10", nativeQuery = true)
     public List<Skills> skillsLatestTenUpdatedSkills();
 
+    @Query(value = "SELECT id FROM skill_matrix.skills WHERE is_required = true and departments_in_warehouse_id = :departmentID", nativeQuery = true)
+    public List<Integer> idEveryRequiredSkillsWithDepartment(@Param("departmentID")Integer departmentID);
+
 
 }

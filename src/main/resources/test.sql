@@ -34,3 +34,13 @@ JOIN groups_in_warehouse giw on p.groups_id = giw.id
 JOIN teams_in_warehouse tiw on p.team_id = tiw.id
 WHERE skill_id = 34;
 
+
+SELECT COUNT(skill_matrix.owned_skill.id) person_id, skill_id, departments_in_warehouse_id, is_required, name_department
+FROM owned_skill
+JOIN persons p on p.id = owned_skill.person_id
+JOIN skills s on s.id = owned_skill.skill_id
+JOIN departments_in_warehouse diw on s.departments_in_warehouse_id = diw.id
+WHERE s.is_required = true AND name_department = 'Pick&Stow' AND person_id = 27
+GROUP BY skill_matrix.owned_skill.id;
+
+
