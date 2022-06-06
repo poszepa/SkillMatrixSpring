@@ -27,6 +27,18 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
 
     public Person findPersonById(Integer id);
 
-    public List<Person> findPersonByActiveTrue();
+    public List<Person> findPersonsByActiveTrue();
+
+    @Query(value = "SELECT * FROM skill_matrix.persons WHERE departments_id = :departmentID AND groups_id = :groupID AND team_id = :teamID AND active = true", nativeQuery = true)
+    public List<Person> findAllPersonWithDepartmentAndGroupsAndTeams(@Param("departmentID")Integer departmentID,
+                                                                     @Param("groupID")Integer groupID,
+                                                                     @Param("teamID")Integer teamID);
+
+    @Query(value = "SELECT * FROM skill_matrix.persons WHERE departments_id = :departmentID AND groups_id = :groupID AND active = true", nativeQuery = true)
+    public List<Person> findAllPersonWithDepartmentAndGroups(@Param("departmentID")Integer departmentID,
+                                                             @Param("groupID")Integer groupID);
+
+    @Query(value = "SELECT * FROM skill_matrix.persons WHERE departments_id = :departmentID AND active = true", nativeQuery = true)
+    public List<Person> findAllPersonWithDepartment(@Param("departmentID")Integer departmentID);
 
 }

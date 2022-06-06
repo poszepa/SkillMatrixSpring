@@ -5,10 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.skillmatrix.skillmatrixspringboot.model.OwnedSkill;
 import pl.skillmatrix.skillmatrixspringboot.model.Person;
-import pl.skillmatrix.skillmatrixspringboot.repository.PersonRepository;
-import pl.skillmatrix.skillmatrixspringboot.repository.SkillsRepository;
+import pl.skillmatrix.skillmatrixspringboot.repository.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,9 @@ import java.util.stream.Collectors;
 public class PersonService{
     private final PersonRepository personRepository;
     private final SkillsRepository skillsRepository;
+    private final DepartmentsInWarehouseRepository departmentRepository;
+    private final GroupsInWarehouseRepository groupRepository;
+    private final TeamsInWarehouseRepository teamRepository;
 
     @Modifying
     @Transactional
@@ -42,6 +46,33 @@ public class PersonService{
                .stream().filter(person -> person.getSkillsList().contains(skillsRepository.findSkillByDepartmentNameAndNameSkill(skillName, departmentName)))
                .collect(Collectors.toList());
     }
+
+
+    @Transactional
+    public List<Person> showPerson(String personDepartment, String personGroup, String personTeam) {
+
+
+        if (!personDepartment.isEmpty() && !personGroup.isEmpty() && !personTeam.isEmpty()) {
+            return personRepository.findAllPersonWithDepartmentAndGroupsAndTeams(
+                    departmentRepository.findByNameDepartment(personDepartment).getId(),
+                    groupRepository.findByNameGroup(personGroup).getId(),
+                    teamRepository.findByNameTeam(personTeam).getId());
+        }
+
+        if (!personDepartment.isEmpty() && !personGroup.isEmpty()) {
+            return personRepository.findAllPersonWithDepartmentAndGroups(
+                    departmentRepository.findByNameDepartment(personDepartment).getId(),
+                    groupRepository.findByNameGroup(personGroup).getId());
+        }
+
+        if (!personDepartment.isEmpty()) {
+            return personRepository.findAllPersonWithDepartment(
+                    departmentRepository.findByNameDepartment(personDepartment).getId());
+        }
+
+        return new ArrayList<>();
+    }
+
 
 
 
