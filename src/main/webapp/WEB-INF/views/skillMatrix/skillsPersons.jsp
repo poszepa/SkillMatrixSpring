@@ -37,6 +37,11 @@
                 <button type="submit" name="seachGroup">Search</button>
             </form>
 
+            <div class="decscription">
+                <h3>Department name: ${departmentName}</h3>
+                <h4>Skill: ${skillName}</h4>
+            </div>
+
             <table
                     data-pagination="true"
                     data-search="true"

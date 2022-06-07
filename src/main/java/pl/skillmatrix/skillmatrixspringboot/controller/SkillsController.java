@@ -39,6 +39,8 @@ public class SkillsController {
         String personDepartment = "";
         String personGroup = "";
         String personTeam = "";
+        model.addAttribute("departmentName", department);
+        model.addAttribute("skillName", skillName);
 
         if(session.getAttribute("everyPeople") != null) {
 
@@ -58,6 +60,7 @@ public class SkillsController {
         if(session.getAttribute("teamPerson") != null) {
             personTeam = session.getAttribute("teamPerson").toString();
         }
+
 
         model.addAttribute("ownedskills",ownedSkillService.showPersonWithSkill(personDepartment, personGroup, personTeam, skillName, department));
         return "/skillMatrix/skillsPersons";
