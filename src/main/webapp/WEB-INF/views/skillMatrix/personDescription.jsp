@@ -9,8 +9,10 @@
   <style>
     .fieldChart{
       display: flex;
-      justify-content: center;
-      align-items: center;
+      justify-content: start;
+      align-items: start;
+      flex-wrap: wrap;
+
     }
   </style>
 </head>
@@ -64,11 +66,12 @@
         </div>
       </form:form>
       <div class="fieldChart">
-        <div style="height: 500px; width: 500px">
-          <canvas id="requiredSkillChart"></canvas>
+        <div>
+          <canvas id="requiredSkillChart" style="height: 250px; width: 1000px"></canvas>
         </div>
-        <div style="height: 500px; width: 500px">
-          <canvas id="everySkillChart"></canvas>
+        <hr>
+        <div>
+          <canvas id="everySkillChart" style="height: 250px; width: 1000px"></canvas>
         </div>
       </div>
 
@@ -77,11 +80,6 @@
 
   </div>
 </div>
-<h2>
-  <c:forEach items="${percentSkills}" var="percentSkill">
-    ${percentSkill}
-  </c:forEach>
-</h2>
 
 <jsp:include page="/WEB-INF/views/static/footer.jsp"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -97,7 +95,9 @@ const data = {
   labels: labels,
   datasets: [{
     label: 'Skill Required',
-    data: [
+    data: [   <c:forEach items="${percentSkillsRequired}" var="percentSkillRequired">
+      ${percentSkillRequired},
+      </c:forEach>
     ],
     backgroundColor: [
       'rgba(255, 99, 132, 0.2)',
@@ -121,12 +121,56 @@ const data = {
   }]
 };
 
-const config = {
+const dataEverySkill = {
+  labels: labels,
+  datasets: [{
+    label: 'Every Skill',
+    data: [   <c:forEach items="${percentSkills}" var="percenSkill">
+      ${percenSkill},
+      </c:forEach>
+    ],
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(255, 159, 64, 0.2)',
+      'rgba(255, 205, 86, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(153, 102, 255, 0.2)',
+      'rgba(201, 203, 207, 0.2)'
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',
+      'rgb(255, 159, 64)',
+      'rgb(255, 205, 86)',
+      'rgb(75, 192, 192)',
+      'rgb(54, 162, 235)',
+      'rgb(153, 102, 255)',
+      'rgb(201, 203, 207)'
+    ],
+    borderWidth: 1
+  }]
+};
+
+const configRequiredSkill = {
   type: 'bar',
   data: data,
   options: {
     scales: {
       y: {
+        max: 1,
+        beginAtZero: true
+      }
+    }
+  },
+};
+
+const configEverySkill = {
+  type: 'bar',
+  data: dataEverySkill,
+  options: {
+    scales: {
+      y: {
+        max: 1,
         beginAtZero: true
       }
     }
@@ -135,8 +179,13 @@ const config = {
 
 const myChart = new Chart(
         document.getElementById('requiredSkillChart'),
-        config
+        configRequiredSkill
 );
+
+const allSkillChart = new Chart(
+        document.getElementById('everySkillChart'),
+        configEverySkill
+)
 </script>
 
 

@@ -52,9 +52,37 @@ public interface SkillsRepository extends JpaRepository<Skills, Integer> {
             "JOIN persons p on p.id = owned_skill.person_id\n" +
             "JOIN skills s on s.id = owned_skill.skill_id\n" +
             "JOIN departments_in_warehouse diw on s.departments_in_warehouse_id = diw.id\n" +
-            "WHERE s.is_required = true AND name_department = :departmentName AND person_id = :PersonID AND gain_skill = TRUE", nativeQuery = true)
-    public Integer countEverySkillWhereHeIsRequiredAndGainSkillSkillIsTrue(@Param("PersonID")Integer personID,
-                                                                           @Param("departmentName")String departmentName);
+            "WHERE s.is_required = true AND name_department = :departmentName AND person_id = :PersonID AND gain_skill = :gainSkill", nativeQuery = true)
+    public Integer countEverySkillWhereHeIsRequiredAndChoosedGainSkill(@Param("PersonID")Integer personID,
+                                                                           @Param("departmentName")String departmentName,
+                                                                           @Param("gainSkill")Boolean gainSkill);
+
+    @Query(value = "SELECT COUNT(*)\n" +
+            "FROM owned_skill\n" +
+            "JOIN persons p on p.id = owned_skill.person_id\n" +
+            "JOIN skills s on s.id = owned_skill.skill_id\n" +
+            "JOIN departments_in_warehouse diw on s.departments_in_warehouse_id = diw.id\n" +
+            "WHERE s.is_required = true AND name_department = :departmentName AND person_id = :PersonID", nativeQuery = true)
+    public Integer countEverySkillWhereHeIsRequired(@Param("PersonID")Integer personID,
+                                                    @Param("departmentName")String departmentName);
 
 
+    @Query(value = "SELECT COUNT(*)\n" +
+            "FROM owned_skill\n" +
+            "JOIN persons p on p.id = owned_skill.person_id\n" +
+            "JOIN skills s on s.id = owned_skill.skill_id\n" +
+            "JOIN departments_in_warehouse diw on s.departments_in_warehouse_id = diw.id\n" +
+            "WHERE name_department = :departmentName AND person_id = :PersonID AND gain_skill = :gainSkill", nativeQuery = true)
+    public Integer countEverySkillWithChoosedDepartmentWithGainSkill(@Param("PersonID")Integer personID,
+                                                        @Param("departmentName")String departmentName,
+                                                        @Param("gainSkill")Boolean gainSkill);
+
+    @Query(value = "SELECT COUNT(*)\n" +
+            "FROM owned_skill\n" +
+            "JOIN persons p on p.id = owned_skill.person_id\n" +
+            "JOIN skills s on s.id = owned_skill.skill_id\n" +
+            "JOIN departments_in_warehouse diw on s.departments_in_warehouse_id = diw.id\n" +
+            "WHERE name_department = :departmentName AND person_id = :PersonID", nativeQuery = true)
+    public Integer countEverySkillChoosedDepartment(@Param("PersonID")Integer personID,
+                                                    @Param("departmentName")String departmentName);
 }

@@ -120,7 +120,8 @@ public class PersonController {
     public String descriptionPerson(@PathVariable("id") String id, Model model) {
         Optional<Person> person = personRepository.findById(Integer.parseInt(id));
         model.addAttribute("person", person);
-        model.addAttribute("percentSkills", ownedSkillService.findCountEveryGainedSkillFromAllDepartmentsAndSkillIsRequired(Integer.parseInt(id)));
+        model.addAttribute("percentSkillsRequired", ownedSkillService.getPercentValueGainedSkillToEveryRequiredSkill(Integer.parseInt(id)));
+        model.addAttribute("percentSkills", ownedSkillService.getPercentValueGainedSkillToEverySkill(Integer.parseInt(id)));
         return "skillMatrix/personDescription";
     }
 

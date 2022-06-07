@@ -29,6 +29,7 @@ public class SkillsService {
         Skills skillFromDataBase = skillsRepository.findSkillsById(skills.getId());
         skillFromDataBase.setPersonList(personRepository.findAll());
         skillFromDataBase.setNameSkill(skills.getNameSkill());
+        skillFromDataBase.setIsRequired(skills.getIsRequired());
         skillsRepository.save(skillFromDataBase);
     }
 
