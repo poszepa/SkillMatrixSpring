@@ -77,9 +77,11 @@
 
   </div>
 </div>
-<c:forEach items="${percentSkill}" var="percentskill">
-  ${percentskill}
-</c:forEach>
+<h2>
+  <c:forEach items="${percentSkills}" var="percentSkill">
+    ${percentSkill}
+  </c:forEach>
+</h2>
 
 <jsp:include page="/WEB-INF/views/static/footer.jsp"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

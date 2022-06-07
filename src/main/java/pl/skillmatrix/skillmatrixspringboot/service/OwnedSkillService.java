@@ -88,13 +88,13 @@ public class OwnedSkillService {
         return Math.round((listOfGainedSkills.size() / listOfAllSkillsDependencyWithPersonID.size()) * 100.0) / 100.0;
     }
 
-    public List<Double> getPercentValueFromEverySkillsRequired(Integer personID) {
-        List<DepartmentsInWarehouse> departmentsInWarehouseList = departmentRepository.findAll();
-        List<Double> returnListPercentValueForPerson = new ArrayList<>();
-
-        for(int i = 0 ; i < departmentsInWarehouseList.size(); i++) {
-            returnListPercentValueForPerson.add(getPercentSkilledFromSkillRequired(personID, departmentsInWarehouseList.get(i).getNameDepartment()));
+    public List<Integer> findCountEveryGainedSkillFromAllDepartmentsAndSkillIsRequired(Integer personID) {
+        List<Integer> countsGainedSkill = new ArrayList<>();
+        for (int i = 0; i < departmentRepository.listOfNameEveryDepartment().size(); i++) {
+            countsGainedSkill.add(skillsRepository.countEverySkillWhereHeIsRequiredAndGainSkillSkillIsTrue(
+                    personID,
+                    departmentRepository.listOfNameEveryDepartment().get(i)));
         }
-        return returnListPercentValueForPerson;
+        return countsGainedSkill;
     }
 }

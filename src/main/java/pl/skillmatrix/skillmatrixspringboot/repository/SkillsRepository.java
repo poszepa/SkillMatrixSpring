@@ -47,8 +47,14 @@ public interface SkillsRepository extends JpaRepository<Skills, Integer> {
     @Query(value = "SELECT * FROM skill_matrix.skills ORDER BY update_time DESC LIMIT 10", nativeQuery = true)
     public List<Skills> skillsLatestTenUpdatedSkills();
 
-    @Query(value = "SELECT id FROM skill_matrix.skills WHERE is_required = true and departments_in_warehouse_id = :departmentID", nativeQuery = true)
-    public List<Integer> idEveryRequiredSkillsWithDepartment(@Param("departmentID")Integer departmentID);
+    @Query(value = "SELECT COUNT(*)\n" +
+            "FROM owned_skill\n" +
+            "JOIN persons p on p.id = owned_skill.person_id\n" +
+            "JOIN skills s on s.id = owned_skill.skill_id\n" +
+            "JOIN departments_in_warehouse diw on s.departments_in_warehouse_id = diw.id\n" +
+            "WHERE s.is_required = true AND name_department = :departmentName AND person_id = :PersonID AND gain_skill = TRUE", nativeQuery = true)
+    public Integer countEverySkillWhereHeIsRequiredAndGainSkillSkillIsTrue(@Param("PersonID")Integer personID,
+                                                                           @Param("departmentName")String departmentName);
 
 
 }
