@@ -7,6 +7,16 @@
 <head>
     <title>Dashboard</title>
     <jsp:include page="/WEB-INF/views/static/headPreference.jsp"/>
+    
+    <style>
+        table{
+            border-style: solid;
+        }
+        th,td{
+            padding: 3px;
+        }
+    </style>
+    
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/static/navbar.jsp"/>
@@ -15,6 +25,19 @@
     <div class="row content">
         <jsp:include page="/WEB-INF/views/static/leftBar.jsp"/>
         <div class="col-sm-8 text-left">
+            <table>
+                <thead>Count people by department</thead>
+                <tr>
+                    <th>Department</th>
+                    <th>count</th>
+                </tr>
+                <c:forEach items="${personsCount}" var="personCount">
+                    <tr>
+                        <td>${personCount.departmentName}</td>
+                        <td>${personCount.countPeople}</td>
+                    </tr>
+                </c:forEach>
+            </table>
         </div>
     </div>
 </div>

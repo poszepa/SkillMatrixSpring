@@ -28,18 +28,38 @@ SELECT skill_matrix.owned_skill.person_id,
 FROM skill_matrix.owned_skill
 JOIN persons p on owned_skill.person_id = p.id
 JOIN skills s on owned_skill.skill_id = s.id
-JOIN departments_in_warehouse diw on p.deparments_id = diw.id
+JOIN departments_in_warehouse diw on p.departments_id = diw.id
 JOIN function_in_warehouse fiw on p.function_id = fiw.id
 JOIN groups_in_warehouse giw on p.groups_id = giw.id
 JOIN teams_in_warehouse tiw on p.team_id = tiw.id
-WHERE skill_id = 34;
+WHERE (SELECT COUNT(*) FROM skill_matrix.owned_skill AS os WHERE os.gain_skill = true AND s.departments_in_warehouse_id = 4 AND s.is_required = true) =
+      (SELECT COUNT(*) FROM skill_matrix.skills WHERE departments_in_warehouse_id = 4 AND is_required = TRUE);
+
+SELECT * FROM skill_matrix.owned_skill AS os
+JOIN skills s on os.skill_id = s.id
+WHERE os.gain_skill = true AND
+      s.departments_in_warehouse_id= 4 AND
+      s.is_required = true
+ORDER BY os.person_id;
+
+SELECT COUNT(*) FROM skills WHERE
+departments_in_warehouse_id = 4 AND is_required = TRUE;
+
+
+
 
 
 SELECT COUNT(*)
 FROM owned_skill
-JOIN persons p on p.id = owned_skill.person_id
-JOIN skills s on s.id = owned_skill.skill_id
-JOIN departments_in_warehouse diw on s.departments_in_warehouse_id = diw.id
-WHERE s.is_required = true AND name_department = 'Pick&Stow' AND person_id = 27 AND gain_skill = TRUE;
+         JOIN persons p on p.id = owned_skill.person_id
+         JOIN skills s on s.id = owned_skill.skill_id
+         JOIN departments_in_warehouse diw on s.departments_in_warehouse_id = diw.id
+WHERE gain_skill = true AND p.departments_id = 7 AND s.departments_in_warehouse_id = 4 AND s.is_required = true;
+
+SELECT COUNT(*)
+FROM skills
+WHERE is_required = true AND departments_in_warehouse_id = 4;
+
+
 
 

@@ -85,4 +85,9 @@ public interface SkillsRepository extends JpaRepository<Skills, Integer> {
             "WHERE name_department = :departmentName AND person_id = :PersonID", nativeQuery = true)
     public Integer countEverySkillChoosedDepartment(@Param("PersonID")Integer personID,
                                                     @Param("departmentName")String departmentName);
+
+    @Query(value = "SELECT COUNT(*)\n" +
+            "FROM skills\n" +
+            "WHERE is_required = true AND departments_in_warehouse_id = :skillDepartmentID;", nativeQuery = true)
+    public Integer countSkillRequiredOnSpecifyDepartment(@Param("skillDepartmentID")Integer id);
 }

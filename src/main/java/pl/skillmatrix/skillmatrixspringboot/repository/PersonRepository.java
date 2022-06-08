@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import pl.skillmatrix.skillmatrixspringboot.model.Person;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Integer> {
@@ -22,8 +23,6 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
 
     public Person findByExpertis(Integer expertis);
 
-    @Query("SELECT person FROM Person person")
-    public List<Person> everyPersonToThoseSkillNameAndDepartmentName();
 
     public Person findPersonById(Integer id);
 
@@ -40,5 +39,22 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
 
     @Query(value = "SELECT * FROM skill_matrix.persons WHERE departments_id = :departmentID AND active = true", nativeQuery = true)
     public List<Person> findAllPersonWithDepartment(@Param("departmentID")Integer departmentID);
+
+    @Query(value = "SELECT COUNT(*)\n" +
+            "FROM skill_matrix.persons\n" +
+            "WHERE active = true AND departments_id = :departments_id\n" +
+            "GROUP BY departments_id;", nativeQuery = true)
+    public Integer countPersonByDepartmentID(@Param("departments_id")Integer id);
+
+    @Query(value = "SELECT COUNT(*)\n" +
+            "FROM owned_skill\n" +
+            "         JOIN persons p on p.id = owned_skill.person_id\n" +
+            "         JOIN skills s on s.id = owned_skill.skill_id\n" +
+            "         JOIN departments_in_warehouse diw on s.departments_in_warehouse_id = diw.id\n" +
+            "WHERE gain_skill = true AND p.departments_id = :personDepartment AND s.departments_in_warehouse_id = :skillDepartment AND s.is_required = true", nativeQuery = true)
+    public Integer countGainSkillFromPerson(@Param("personDepartment")Integer personDepartment,
+                                            @Param("skillDepartment")Integer skillDepartment);
+
+
 
 }

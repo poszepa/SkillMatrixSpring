@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import pl.skillmatrix.skillmatrixspringboot.model.DepartmentsInWarehouse;
 import pl.skillmatrix.skillmatrixspringboot.model.OwnedSkill;
 import pl.skillmatrix.skillmatrixspringboot.model.Person;
+import pl.skillmatrix.skillmatrixspringboot.model.PersonCount;
 import pl.skillmatrix.skillmatrixspringboot.repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -68,10 +70,21 @@ public class PersonService{
         return new ArrayList<>();
     }
 
+    public List<PersonCount> countPeopleByDepartmentID() {
+        List<PersonCount> count = new ArrayList<>();
+        List<DepartmentsInWarehouse> departments = departmentRepository.findDepartmentWithoutGeneral();
 
-    @ModelAttribute("departments")
-    public List<DepartmentsInWarehouse> allDepartment() {
-        return departmentRepository.findAll();
+        for(int i = 0 ; i < departments.size(); i++) {
+            int countPeople = 0;
+
+            if(personRepository.countPersonByDepartmentID(departments.get(i).getId()) != null) {
+                countPeople = personRepository.countPersonByDepartmentID(departments.get(i).getId());
+            }
+
+            count.add(new PersonCount(countPeople, departments.get(i).getNameDepartment()));
+        }
+
+        return count;
     }
 
 }

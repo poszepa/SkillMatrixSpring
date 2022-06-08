@@ -120,9 +120,5 @@ public interface OwnedSkillRepository extends JpaRepository<OwnedSkill, Integer>
             @Param("groupID")Integer groupID,
             @Param("teamID")Integer teamID);
 
-    @Query("SELECT ownedSkill FROM OwnedSkill  ownedSkill " +
-            "WHERE ownedSkill.person.id = :personID AND " +
-            "ownedSkill.skills.isRequired = true AND " +
-            "ownedSkill.skills.departmentsInWarehouse.id = :departmentID")
-    public List<OwnedSkill> findOwnedSkillByPersonIDAndDepartmentID(@Param("personID")Integer personID, @Param("departmentID")Integer departmentID);
+
 }
