@@ -14,4 +14,7 @@ public interface DepartmentsInWarehouseRepository extends JpaRepository<Departme
 
     @Query(value = "SELECT name_department FROM departments_in_warehouse", nativeQuery = true)
     List<String> listOfNameEveryDepartment();
+
+    @Query("SELECT department FROM DepartmentsInWarehouse department WHERE department.nameDepartment NOT LIKE 'General'")
+    List<DepartmentsInWarehouse> findDepartmentWithoutGeneral();
 }

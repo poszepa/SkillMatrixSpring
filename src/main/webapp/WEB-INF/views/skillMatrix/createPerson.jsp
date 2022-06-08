@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-md-2">
                     <label for="modifyDepatments" class="form-label">Departments</label>
-                    <form:select type="text" class="form-control" id="modifyDepatments" path="departmentsInWarehouse.id" itemValue="id" itemLabel="nameDepartment" items="${departments}"/>
+                    <form:select type="text" class="form-control" id="modifyDepatments" path="departmentsInWarehouse.id" itemValue="id" itemLabel="nameDepartment" items="${departmentsWithoutGeneral}"/>
                     <form:errors path="departmentsInWarehouse.id"/>
                 </div>
                 <div class="col-md-2">
@@ -55,7 +55,7 @@
                 </div>
             </form:form>
             <c:if test="${not empty successAddPerson}">
-                Poprawnie dodano pracownika !
+                Successful added new Person.
             </c:if>
         </div>
     </div>

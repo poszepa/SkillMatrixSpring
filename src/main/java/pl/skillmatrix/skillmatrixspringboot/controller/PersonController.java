@@ -32,6 +32,7 @@ public class PersonController {
 
     @GetMapping("person/create")
     public String createPerson(Model model, HttpSession httpSession) {
+        model.addAttribute("departmentsWithoutGeneral", departmentsRepository.findDepartmentWithoutGeneral());
         httpSession.getAttribute("successAddPerson");
         httpSession.setMaxInactiveInterval(1);
         model.addAttribute("person", new Person());
