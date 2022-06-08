@@ -16,6 +16,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="/skillMatrix/home">Home</a></li>
                 <li><a href="/skillMatrix/person">Employees</a></li>
+                <li><a href="/skillMatrix/admin/dashboard">Dashboard</a></li>
                 <li><a href="/skillMatrix/admin/departments">Departments</a></li>
                 <li><a href="/skillMatrix/admin/skills">Skills</a></li>
                 <li><a href="/skillMatrix/admin/function">Function</a></li>
