@@ -20,6 +20,7 @@ public class OwnedSkillService {
     private final GroupsInWarehouseRepository groupRepository;
     private final TeamsInWarehouseRepository teamRepository;
     private final SkillsRepository skillsRepository;
+    private final PersonRepository personRepository;
 
     @Transactional
     @Modifying
@@ -153,4 +154,16 @@ public class OwnedSkillService {
         return percentValues;
     }
     //###############################################################################################
+
+
+    public Integer getCountEmployeeWhoGotFullSkillsFromDepartment(Integer personDepartment, Integer skillDepartment){
+        Integer countMustHaveSkill = Integer.MIN_VALUE;    // here we initialize min value from integer to not count people.
+
+        if(skillsRepository.countSkillRequiredOnSpecifyDepartment(skillDepartment) != null) {
+            countMustHaveSkill = skillsRepository.countSkillRequiredOnSpecifyDepartment(skillDepartment);
+        }
+
+        List<Integer> countPeopleWithAllGainedSkill = personRepository.countPersonWhoGainedAllSkillFromDepartment(personDepartment, skillDepartment, countMustHaveSkill);
+        return countPeopleWithAllGainedSkill.size();
+    }
 }

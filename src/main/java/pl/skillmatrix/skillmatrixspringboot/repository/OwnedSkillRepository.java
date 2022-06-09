@@ -120,5 +120,4 @@ public interface OwnedSkillRepository extends JpaRepository<OwnedSkill, Integer>
             @Param("groupID")Integer groupID,
             @Param("teamID")Integer teamID);
 
-
 }
