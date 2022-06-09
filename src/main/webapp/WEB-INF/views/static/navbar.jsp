@@ -22,6 +22,7 @@
                 <li><a href="/skillMatrix/admin/function">Function</a></li>
                 <li><a href="/skillMatrix/admin/group">Group</a></li>
                 <li><a href="/skillMatrix/admin/team">Team</a></li>
+                <li><a href="/skillMatrix/admin/employee">Employee Admin</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
