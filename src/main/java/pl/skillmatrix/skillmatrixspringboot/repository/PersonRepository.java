@@ -53,7 +53,7 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
             "    s.departments_in_warehouse_id = :skillDepartment AND\n" +
             "    s.is_required = TRUE\n" +
             "GROUP BY person_id\n" +
-            "HAVING COUNT(*) = :countOfMustHaveGainedSkill;", nativeQuery = true)
+            "HAVING COUNT(*) = :countOfMustHaveGainedSkill", nativeQuery = true)
     public List<Integer> countPersonWhoGainedAllSkillFromDepartment(@Param("personDepartment")Integer personDepartment,
                                                   @Param("skillDepartment")Integer skillDepartment,
                                                   @Param("countOfMustHaveGainedSkill")Integer countMustHaveGainedSkill);
