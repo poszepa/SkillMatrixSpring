@@ -54,15 +54,16 @@
     <div class="container">
         <div class="loginForm">
             <span>Register a new Account</span><br>
-            <form:form method="post" modelAttribute="user" action="/">
+            <form:form method="post" modelAttribute="user" action="/register">
+
             <label for="emailControl" class="form-label"></label>
-                <form:input path="email" placeholder="email" class="form-control" id="emailControl" type="email"/>
+                <form:input path="username" placeholder="email" class="form-control" id="emailControl" type="email"/>
 
             <label for="passwordControll" class="form-label"></label>
                 <form:input path="password" placeholder="password" class="form-control" id="passwordControll" type="password"/>
 
             <label for="passwordControllRe" class="form-label"></label>
-                <input type="password" placeholder="rePassword" class="form-control" id="passwordControllRe">
+                <input type="password" placeholder="rePassword" class="form-control" name="passwordControllRe" id="passwordControllRe">
 
             <div class="loginAndRegister">
                 <button class="btn btn-primary" id="btnRegister" type="submit">Register Account</button>
