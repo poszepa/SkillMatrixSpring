@@ -1,6 +1,8 @@
 package pl.skillmatrix.skillmatrixspringboot.service;
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -18,21 +20,21 @@ public class AuthService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email)
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
                 // Użytkownika z bazy (naszego) zamieniamy na użytkownika Spring Security
                 .map(userEntity -> new User(
                         // podając nazwę użytkownika
-                        userEntity.getEmail(),
+                        userEntity.getUsername(),
                         // podając hasło
                         userEntity.getPassword(),
                         // podając listę jego ról
                         // u nas w podstawowym wariancie jest 1 rola
-                        List.of(new SimpleGrantedAuthority(userEntity.getRole().getName()))))
+                        List.of(new SimpleGrantedAuthority(userEntity.getRole()))))
                 // jeżeli nasza aplikacja nie obsługuje ról, to podajemy
                 // jakąś sztuczną rolę, bo musi być
 //                        List.of(new SimpleGrantedAuthority("USER"))))
-                .orElseThrow(() -> new UsernameNotFoundException("No user with email " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("No user with username " + username));
     }
 
     // Wykorzystanie wstrzykiwania przez setter pomaga w problemach z kolejnością zależności database<->security
