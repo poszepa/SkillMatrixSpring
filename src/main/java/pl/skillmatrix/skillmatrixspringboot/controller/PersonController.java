@@ -45,10 +45,10 @@ public class PersonController {
     }
 
     @PostMapping("person/create")
-    public String createPersonPost(@ModelAttribute("Person") @Valid Person person, BindingResult result, HttpSession httpSession) {
-        if(result.hasErrors()){
-            return "redirect:/skillMatrix/person/create";
-        }
+    public String createPersonPost(@ModelAttribute("Person")Person person, HttpSession httpSession) {
+//        if(result.hasErrors()){
+//            return "redirect:/skillMatrix/person/create";
+//        }
         person.setSkillsList(skillsRepository.findAll());
         personService.savePerson(person);
         httpSession.setAttribute("successAddPerson", person);

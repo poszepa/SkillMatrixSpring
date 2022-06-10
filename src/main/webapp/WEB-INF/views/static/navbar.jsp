@@ -24,7 +24,6 @@
                 </sec:authorize>
                 <sec:authorize access="hasRole('ADMIN')">
                 <li><a href="/skillMatrix/admin/departments">Departments</a></li>
-                <li><a href="/skillMatrix/admin/skills">Skills</a></li>
                 <li><a href="/skillMatrix/admin/function">Function</a></li>
                 <li><a href="/skillMatrix/admin/group">Group</a></li>
                 <li><a href="/skillMatrix/admin/team">Team</a></li>

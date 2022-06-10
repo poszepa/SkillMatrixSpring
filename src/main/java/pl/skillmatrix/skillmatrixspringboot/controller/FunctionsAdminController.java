@@ -25,7 +25,7 @@ public class FunctionsAdminController {
     @GetMapping("function")
     public String showFunctions(Model model) {
         model.addAttribute("functions",functionRepository.findAll());
-        return "/skillMatrix/admin/function";
+        return "/skillMatrix/admin/function/function";
     }
 
     @GetMapping("function/create")
@@ -33,7 +33,7 @@ public class FunctionsAdminController {
         httpSession.setMaxInactiveInterval(1);
         FunctionInWarehouse function = new FunctionInWarehouse();
         model.addAttribute("function",function);
-        return "skillMatrix/admin/functionCreate";
+        return "skillMatrix/admin/function/functionCreate";
     }
 
     @PostMapping("function/create")
@@ -75,7 +75,7 @@ public class FunctionsAdminController {
             return "redirect:/skillMatrix/admin/function";
         }
         model.addAttribute("function", functionRepository.findById(id));
-        return "/skillMatrix/admin/functionEdit";
+        return "/skillMatrix/admin/function/functionEdit";
     }
 
     @PostMapping("function/edit")

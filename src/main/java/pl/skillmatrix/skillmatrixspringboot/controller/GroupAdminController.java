@@ -24,7 +24,7 @@ public class GroupAdminController {
     @GetMapping("group")
     public String showGroups(Model model) {
         model.addAttribute("groups",groupRepository.findAll());
-        return "/skillMatrix/admin/group";
+        return "/skillMatrix/admin/group/group";
     }
 
     @GetMapping("group/create")
@@ -32,7 +32,7 @@ public class GroupAdminController {
         httpSession.setMaxInactiveInterval(1);
         GroupsInWarehouse group = new GroupsInWarehouse();
         model.addAttribute("group",group);
-        return "skillMatrix/admin/groupCreate";
+        return "skillMatrix/admin/group/groupCreate";
     }
 
     @PostMapping("group/create")
@@ -74,7 +74,7 @@ public class GroupAdminController {
             return "redirect:/skillMatrix/admin/group";
         }
         model.addAttribute("group", groupRepository.findById(id));
-        return "/skillMatrix/admin/groupEdit";
+        return "/skillMatrix/admin/group/groupEdit";
     }
 
     @PostMapping("group/edit")

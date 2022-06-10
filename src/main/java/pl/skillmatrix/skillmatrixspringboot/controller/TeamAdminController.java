@@ -24,7 +24,7 @@ public class TeamAdminController {
     @GetMapping("team")
     public String showTeam(Model model) {
         model.addAttribute("teams",teamRepository.findAll());
-        return "/skillMatrix/admin/team";
+        return "/skillMatrix/admin/team/team";
     }
 
     @GetMapping("team/create")
@@ -32,7 +32,7 @@ public class TeamAdminController {
         httpSession.setMaxInactiveInterval(1);
         TeamsInWarehouse team = new TeamsInWarehouse();
         model.addAttribute("team",team);
-        return "skillMatrix/admin/teamCreate";
+        return "skillMatrix/admin/team/teamCreate";
     }
 
     @PostMapping("team/create")
@@ -71,7 +71,7 @@ public class TeamAdminController {
             return "redirect:/skillMatrix/admin/team";
         }
         model.addAttribute("team", teamRepository.findById(id));
-        return "/skillMatrix/admin/teamEdit";
+        return "/skillMatrix/admin/team/teamEdit";
     }
 
     @PostMapping("team/edit")

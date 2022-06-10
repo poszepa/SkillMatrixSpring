@@ -19,7 +19,7 @@ public class DepartmentAdminController {
     @GetMapping("departments")
     public String showDepartments(Model model) {
         model.addAttribute("departments",departmentsRepository.findAll());
-        return "/skillMatrix/admin/department";
+        return "/skillMatrix/admin/department/department";
     }
 
     @GetMapping("departments/create")
@@ -27,7 +27,7 @@ public class DepartmentAdminController {
         httpSession.setMaxInactiveInterval(1);
         DepartmentsInWarehouse department = new DepartmentsInWarehouse();
         model.addAttribute("department",department);
-        return "skillMatrix/admin/departmentCreate";
+        return "skillMatrix/admin/department/departmentCreate";
     }
 
     @PostMapping("departments/create")
@@ -66,7 +66,7 @@ public class DepartmentAdminController {
             return "redirect:/skillMatrix/admin/departments";
         }
         model.addAttribute("department", departmentsRepository.findById(id));
-        return "/skillMatrix/admin/departmentEdit";
+        return "/skillMatrix/admin/department/departmentEdit";
     }
 
     @PostMapping("departments/edit")

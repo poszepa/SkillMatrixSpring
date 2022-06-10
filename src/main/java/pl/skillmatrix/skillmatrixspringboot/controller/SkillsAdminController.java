@@ -1,6 +1,7 @@
 package pl.skillmatrix.skillmatrixspringboot.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,14 +34,14 @@ public class SkillsAdminController {
     @GetMapping("skills")
     public String homeSkills(Model model) {
         model.addAttribute("skills",skillsRepository.findAll());
-        return "/skillMatrix/admin/skills";
+        return "/skillMatrix/admin/skills/skills";
     }
 
     @GetMapping("skills/create")
     public String skillsCreate(Model model, HttpSession session) {
         session.setMaxInactiveInterval(1);
         model.addAttribute("skill", new Skills());
-        return "/skillMatrix/admin/skillsCreate";
+        return "/skillMatrix/admin/skills/skillsCreate";
     }
 
     @PostMapping("skills/create")
@@ -57,16 +58,17 @@ public class SkillsAdminController {
     public String skillEdit(Model model, @PathVariable("id")Integer id, HttpSession session) {
         session.setMaxInactiveInterval(1);
         if(!skillsRepository.existsById(id)){
-            return "redirect: /skillMatrix/admin/skills";
+            return "redirect: /skillMatrix/admin/skills/skills";
         }
         model.addAttribute("skill", skillsRepository.findById(id));
-        return "skillMatrix/admin/skillsEdit";
+        return "skillMatrix/admin/skills/skillsEdit";
     }
 
     @PostMapping("skills/edit")
-    public String skillEdited(@ModelAttribute("skill") @Valid Skills skills, BindingResult result, HttpSession session) {
+    public String skillEdited(@ModelAttribute("skill") @Valid Skills skills, @NotNull BindingResult result, HttpSession session) {
         if(result.hasErrors()) {
-            return "redirect:/skillMatrix/admin/skills/edit/" + skills.getId();
+//            return "redirect:/skillMatrix/admin/skills/edit/" + skills.getId();
+            return "redirect:/skillMatrix/admin/skills/";
         }
         skillsService.modifySkills(skills);
         session.setAttribute("successEditSkill", "successEditSkill");
