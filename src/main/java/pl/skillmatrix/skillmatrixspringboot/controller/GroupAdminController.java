@@ -3,6 +3,7 @@ package pl.skillmatrix.skillmatrixspringboot.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.skillmatrix.skillmatrixspringboot.model.DepartmentsInWarehouse;
 import pl.skillmatrix.skillmatrixspringboot.model.GroupsInWarehouse;
@@ -10,6 +11,7 @@ import pl.skillmatrix.skillmatrixspringboot.repository.DepartmentsInWarehouseRep
 import pl.skillmatrix.skillmatrixspringboot.repository.GroupsInWarehouseRepository;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -34,7 +36,10 @@ public class GroupAdminController {
     }
 
     @PostMapping("group/create")
-    public String createGroup(@ModelAttribute("group")GroupsInWarehouse group, HttpSession httpSession){
+    public String createGroup(@ModelAttribute("group")@Valid GroupsInWarehouse group , BindingResult bindingResult, HttpSession httpSession){
+        if(bindingResult.hasErrors()) {
+            return "redirect:/skillMatrix/admin/group/create";
+        }
         if(group == null) {
             return "redirect:/skillMatrix/admin/group/create";
         }
@@ -43,23 +48,23 @@ public class GroupAdminController {
         return "redirect:/skillMatrix/admin/group/create";
     }
 
-    @GetMapping("group/remove/{id}")
-    public String removeGroup(@PathVariable("id")Integer id, Model model) {
-        if(!groupRepository.existsById(id)) {
-            return "redirect:/skillMatrix/admin/group";
-        }
-        model.addAttribute("group", groupRepository.findById(id));
-        return "/skillMatrix/admin/groupRemove";
-    }
-
-    @PostMapping("group/remove/remove")
-    public String removeGroup(@ModelAttribute("id")Integer id) {
-        if(!groupRepository.existsById(id)){
-            return "redirect:/skillMatrix/admin/group";
-        }
-        groupRepository.deleteById(id);
-        return "redirect:/skillMatrix/admin/group";
-    }
+//    @GetMapping("group/remove/{id}")
+//    public String removeGroup(@PathVariable("id")Integer id, Model model) {
+//        if(!groupRepository.existsById(id)) {
+//            return "redirect:/skillMatrix/admin/group";
+//        }
+//        model.addAttribute("group", groupRepository.findById(id));
+//        return "/skillMatrix/admin/groupRemove";
+//    }
+//
+//    @PostMapping("group/remove/remove")
+//    public String removeGroup(@ModelAttribute("id")Integer id) {
+//        if(!groupRepository.existsById(id)){
+//            return "redirect:/skillMatrix/admin/group";
+//        }
+//        groupRepository.deleteById(id);
+//        return "redirect:/skillMatrix/admin/group";
+//    }
 
 
 

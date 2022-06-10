@@ -3,6 +3,7 @@ package pl.skillmatrix.skillmatrixspringboot.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.skillmatrix.skillmatrixspringboot.model.DepartmentsInWarehouse;
 import pl.skillmatrix.skillmatrixspringboot.model.FunctionInWarehouse;
@@ -11,6 +12,7 @@ import pl.skillmatrix.skillmatrixspringboot.repository.DepartmentsInWarehouseRep
 import pl.skillmatrix.skillmatrixspringboot.repository.FunctionInWarehouseRepository;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,7 +37,10 @@ public class FunctionsAdminController {
     }
 
     @PostMapping("function/create")
-    public String createFunction(@ModelAttribute("function")FunctionInWarehouse function, HttpSession httpSession){
+    public String createFunction(@ModelAttribute("function")@Valid FunctionInWarehouse function, BindingResult bindingResult, HttpSession httpSession){
+        if(bindingResult.hasErrors()) {
+            return "redirect:/skillMatrix/admin/function/create";
+        }
         if(function == null) {
             return "redirect:/skillMatrix/admin/function/create";
         }
@@ -44,23 +49,23 @@ public class FunctionsAdminController {
         return "redirect:/skillMatrix/admin/function/create";
     }
 
-    @GetMapping("function/remove/{id}")
-    public String removeFunction(@PathVariable("id")Integer id, Model model) {
-        if(!functionRepository.existsById(id)) {
-            return "redirect:/skillMatrix/admin/function";
-        }
-        model.addAttribute("function", functionRepository.findById(id));
-        return "/skillMatrix/admin/functionRemove";
-    }
-
-    @PostMapping("function/remove/remove")
-    public String removeFunction(@ModelAttribute("id")Integer id) {
-        if(!functionRepository.existsById(id)){
-            return "redirect:/skillMatrix/admin/function";
-        }
-        functionRepository.deleteById(id);
-        return "redirect:/skillMatrix/admin/function";
-    }
+//    @GetMapping("function/remove/{id}")
+//    public String removeFunction(@PathVariable("id")Integer id, Model model) {
+//        if(!functionRepository.existsById(id)) {
+//            return "redirect:/skillMatrix/admin/function";
+//        }
+//        model.addAttribute("function", functionRepository.findById(id));
+//        return "/skillMatrix/admin/functionRemove";
+//    }
+//
+//    @PostMapping("function/remove/remove")
+//    public String removeFunction(@ModelAttribute("id")Integer id) {
+//        if(!functionRepository.existsById(id)){
+//            return "redirect:/skillMatrix/admin/function";
+//        }
+//        functionRepository.deleteById(id);
+//        return "redirect:/skillMatrix/admin/function";
+//    }
 
 
 

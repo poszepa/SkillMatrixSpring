@@ -40,23 +40,23 @@ public class DepartmentAdminController {
         return "redirect:/skillMatrix/admin/departments/create";
     }
 
-    @GetMapping("departments/remove/{id}")
-    public String removeDepartment(@PathVariable("id")Integer id, Model model) {
-        if(!departmentsRepository.existsById(id)) {
-            return "redirect:/skillMatrix/admin/departments";
-        }
-        model.addAttribute("department", departmentsRepository.findById(id));
-        return "/skillMatrix/admin/departmentRemove";
-    }
-
-    @PostMapping("departments/remove/remove")
-    public String removedDepartment(@ModelAttribute("id")Integer id) {
-        if(!departmentsRepository.existsById(id)){
-            return "redirect:/skillMatrix/admin/departments";
-        }
-        departmentsRepository.deleteById(id);
-        return "redirect:/skillMatrix/admin/departments";
-    }
+//    @GetMapping("departments/remove/{id}")
+//    public String removeDepartment(@PathVariable("id")Integer id, Model model) {
+//        if(!departmentsRepository.existsById(id)) {
+//            return "redirect:/skillMatrix/admin/departments";
+//        }
+//        model.addAttribute("department", departmentsRepository.findById(id));
+//        return "/skillMatrix/admin/departmentRemove";
+//    }
+//
+//    @PostMapping("departments/remove/remove")
+//    public String removedDepartment(@ModelAttribute("id")Integer id) {
+//        if(!departmentsRepository.existsById(id)){
+//            return "redirect:/skillMatrix/admin/departments";
+//        }
+//        departmentsRepository.deleteById(id);
+//        return "redirect:/skillMatrix/admin/departments";
+//    }
 
 
 

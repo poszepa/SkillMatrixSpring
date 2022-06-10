@@ -73,20 +73,20 @@ public class SkillsAdminController {
         return "redirect:/skillMatrix/admin/skills/edit/" + skills.getId();
     }
 
-    @GetMapping("skills/remove/{id}")
-    public String removeSkill(@PathVariable("id")Integer id,Model model){
-        if(!skillsRepository.existsById(id)){
-            return "redirect: /skillMatrix/admin/skills";
-        }
-        model.addAttribute("skill", skillsRepository.findById(id));
-        return "/skillMatrix/admin/skillsRemove";
-    }
-
-    @PostMapping("/skills/remove")
-    public String removedSkill(@ModelAttribute("skill")Skills skills){
-            skillsRepository.delete(skills);
-        return "redirect:/skillMatrix/admin/skills";
-    }
+//    @GetMapping("skills/remove/{id}")
+//    public String removeSkill(@PathVariable("id")Integer id,Model model){
+//        if(!skillsRepository.existsById(id)){
+//            return "redirect: /skillMatrix/admin/skills";
+//        }
+//        model.addAttribute("skill", skillsRepository.findById(id));
+//        return "/skillMatrix/admin/skillsRemove";
+//    }
+//
+//    @PostMapping("/skills/remove")
+//    public String removedSkill(@ModelAttribute("skill")Skills skills){
+//            skillsRepository.delete(skills);
+//        return "redirect:/skillMatrix/admin/skills";
+//    }
 
 
     @ModelAttribute("departments")

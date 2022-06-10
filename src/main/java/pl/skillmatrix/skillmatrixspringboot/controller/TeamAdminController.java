@@ -45,23 +45,23 @@ public class TeamAdminController {
         return "redirect:/skillMatrix/admin/team/create";
     }
 
-    @GetMapping("team/remove/{id}")
-    public String removeTeam(@PathVariable("id")Integer id, Model model) {
-        if(!teamRepository.existsById(id)) {
-            return "redirect:/skillMatrix/admin/team";
-        }
-        model.addAttribute("team", teamRepository.findById(id));
-        return "/skillMatrix/admin/teamRemove";
-    }
-
-    @PostMapping("team/remove/remove")
-    public String removeTeam(@ModelAttribute("id")Integer id) {
-        if(!teamRepository.existsById(id)){
-            return "redirect:/skillMatrix/admin/team";
-        }
-        teamRepository.deleteById(id);
-        return "redirect:/skillMatrix/admin/team";
-    }
+//    @GetMapping("team/remove/{id}")
+//    public String removeTeam(@PathVariable("id")Integer id, Model model) {
+//        if(!teamRepository.existsById(id)) {
+//            return "redirect:/skillMatrix/admin/team";
+//        }
+//        model.addAttribute("team", teamRepository.findById(id));
+//        return "/skillMatrix/admin/teamRemove";
+//    }
+//
+//    @PostMapping("team/remove/remove")
+//    public String removeTeam(@ModelAttribute("id")Integer id) {
+//        if(!teamRepository.existsById(id)){
+//            return "redirect:/skillMatrix/admin/team";
+//        }
+//        teamRepository.deleteById(id);
+//        return "redirect:/skillMatrix/admin/team";
+//    }
 
 
 
