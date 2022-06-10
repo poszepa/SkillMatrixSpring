@@ -20,7 +20,7 @@
                 <sec:authorize access="hasAnyRole('ADMIN', 'AREA')">
                     <li><a href="/skillMatrix/admin/dashboard">Dashboard</a></li>
                     <li><a href="/skillMatrix/admin/skills">Skills</a></li>
-                    <li><a href="/skillMatrix/admin/users">Users Admin</a></li>
+                    <li><a href="/skillMatrix/admin/usersConfigure">User configure</a></li>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ADMIN')">
                 <li><a href="/skillMatrix/admin/departments">Departments</a></li>
