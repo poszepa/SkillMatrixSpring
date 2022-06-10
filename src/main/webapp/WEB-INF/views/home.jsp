@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,17 +36,17 @@
 <body>
 
 <div class="container">
-    <div class="loginForm"
-    <form:form method="post" modelAttribute="user" action="/">
+    <div class="loginForm">
+    <form:form method="post" modelAttribute="user">
         <label for="emailControll" class="form-label"></label>
-        <form:input path="email" placeholder="email" class="form-control" id="emailControll" type="email"></form:input>
+        <form:input path="username" placeholder="email" class="form-control" id="emailControll" type="email"/>
 
         <label for="passwordControll" class="form-label"></label>
-        <form:input path="password" placeholder="password" class="form-control" id="passwordControll" type="password"></form:input>
+        <form:input path="password" placeholder="password" class="form-control" id="passwordControll" type="password"/>
             <div class="loginAndRegister">
-                <button class="btn btn-primary" type="submit">Login</button>
+                <form:button  class="btn btn-primary">Login</form:button>
     </form:form>
-                <a class="btn btn-primary" href="/register" type="button">register</a>
+                <a class="btn btn-primary" href="/register" type="button">Register</a>
             </div>
     </div>
 </div>
