@@ -1,6 +1,9 @@
 package pl.skillmatrix.skillmatrixspringboot.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -8,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.skillmatrix.skillmatrixspringboot.model.*;
 import pl.skillmatrix.skillmatrixspringboot.repository.*;
+import pl.skillmatrix.skillmatrixspringboot.service.ColorService;
 import pl.skillmatrix.skillmatrixspringboot.service.OwnedSkillService;
 import pl.skillmatrix.skillmatrixspringboot.service.PersonService;
 
@@ -29,6 +33,7 @@ public class PersonController {
     private final SkillsRepository skillsRepository;
     private final PersonService personService;
     private final OwnedSkillService ownedSkillService;
+    private final ColorService colorService;
 
     @GetMapping("person/create")
     public String createPerson(Model model, HttpSession httpSession) {
@@ -123,10 +128,12 @@ public class PersonController {
         model.addAttribute("person", person);
         model.addAttribute("percentSkillsRequired", ownedSkillService.getPercentValueGainedSkillToEveryRequiredSkill(Integer.parseInt(id)));
         model.addAttribute("percentSkills", ownedSkillService.getPercentValueGainedSkillToEverySkill(Integer.parseInt(id)));
+        model.addAttribute("color", colorService.colorsToChartList(0.0));
+        model.addAttribute("colorBackground", colorService.colorsToChartList(0.2));
+
         return "skillMatrix/personDescription";
     }
 
-    @Transactional
     @PostMapping("/person/edit")
     public String modifyPerson(@ModelAttribute("person")@Valid Person person, BindingResult result) {
         if(result.hasErrors()) {
@@ -146,7 +153,6 @@ public class PersonController {
         return "/skillMatrix/personRemove";
     }
 
-    @Transactional
     @PostMapping("/person/remove")
     public String removePerson(@ModelAttribute("person")Person person) {
         if(!personRepository.existsById(person.getId())) {

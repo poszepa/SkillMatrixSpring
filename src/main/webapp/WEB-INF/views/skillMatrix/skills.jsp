@@ -23,8 +23,8 @@
                 <thead>
                 <tr>
                     <th data-sortable="true">Name Skill</th>
-                    <th data-sortable="true">is Required</th>
-                    <th data-sortable="true">Create Time</th>
+                    <th data-sortable="true" data-width="50">is Required</th>
+                    <th data-sortable="true" >Create Time</th>
                     <th data-sortable="true">Update Time</th>
                     <th data-sortable="true"></th>
                 </tr>
