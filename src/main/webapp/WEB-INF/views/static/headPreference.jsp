@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -27,9 +28,12 @@
         background-color: #f1f1f1;
         height: 100%;
     }
-
+    .sidenav {
+        height: 100%;
+    }
     /* Set black background color, white text and some padding */
     footer {
+        height: max-content;
         background-color: #555;
         color: white;
         padding: 15px;
