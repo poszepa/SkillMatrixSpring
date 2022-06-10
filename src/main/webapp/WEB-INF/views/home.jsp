@@ -8,6 +8,10 @@
 <head>
     <title>Login</title>
     <style>
+        .mainContent{
+            background-image: url('https://54d422bfce946a1b00b9-db204bc33373148745d05982db84d1c6.ssl.cf1.rackcdn.com/1553841182986skill.png');
+            background-size: cover;
+        }
         .container{
             display: flex;
             justify-content: center;
@@ -15,6 +19,7 @@
             height: 700px;
         }
         .loginForm{
+            background-color: white;
             height: 250px;
             width: 300px;
             padding: 10px;
@@ -34,7 +39,7 @@
 
 </head>
 <body>
-
+<div class="mainContent">
 <div class="container">
     <div class="loginForm">
     <form:form method="post" modelAttribute="user">
@@ -49,6 +54,7 @@
                 <a class="btn btn-primary" href="/register" type="button">Register</a>
             </div>
     </div>
+</div>
 </div>
 
 </body>

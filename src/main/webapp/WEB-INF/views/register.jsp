@@ -9,14 +9,13 @@
 <head>
     <title>Login</title>
     <style>
-        .body-container{
-            background-color: lightgrey;
-        }
         .container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 700px;
+            background-image: url('https://54d422bfce946a1b00b9-db204bc33373148745d05982db84d1c6.ssl.cf1.rackcdn.com/1553841182986skill.png');
+            background-size: cover;
         }
 
         .loginForm {
