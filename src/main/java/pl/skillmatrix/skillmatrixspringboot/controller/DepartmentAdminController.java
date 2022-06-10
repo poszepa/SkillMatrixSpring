@@ -3,11 +3,13 @@ package pl.skillmatrix.skillmatrixspringboot.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.skillmatrix.skillmatrixspringboot.model.DepartmentsInWarehouse;
 import pl.skillmatrix.skillmatrixspringboot.repository.DepartmentsInWarehouseRepository;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,20 +25,21 @@ public class DepartmentAdminController {
     }
 
     @GetMapping("departments/create")
-    public String createDepartment(Model model, HttpSession httpSession) {
-        httpSession.setMaxInactiveInterval(1);
+    public String createDepartment(Model model) {
         DepartmentsInWarehouse department = new DepartmentsInWarehouse();
         model.addAttribute("department",department);
         return "skillMatrix/admin/department/departmentCreate";
     }
 
     @PostMapping("departments/create")
-    public String createdDepartment(@ModelAttribute("department")DepartmentsInWarehouse departments, HttpSession httpSession){
+    public String createdDepartment(@ModelAttribute("department")@Valid DepartmentsInWarehouse departments, BindingResult bindingResult){
+        if(bindingResult.hasErrors()) {
+            return "redirect:/skillMatrix/admin/departments/create";
+        }
         if(departments == null) {
             return "redirect:/skillMatrix/admin/departments/create";
         }
         departmentsRepository.save(departments);
-        httpSession.setAttribute("success", "Correctly added a new department");
         return "redirect:/skillMatrix/admin/departments/create";
     }
 

@@ -39,19 +39,17 @@ public class PersonController {
     public String createPerson(Model model, HttpSession httpSession) {
         model.addAttribute("departmentsWithoutGeneral", departmentsRepository.findDepartmentWithoutGeneral());
         httpSession.getAttribute("successAddPerson");
-        httpSession.setMaxInactiveInterval(1);
         model.addAttribute("person", new Person());
         return "skillMatrix/createPerson";
     }
 
     @PostMapping("person/create")
-    public String createPersonPost(@ModelAttribute("Person")Person person, HttpSession httpSession) {
-//        if(result.hasErrors()){
-//            return "redirect:/skillMatrix/person/create";
-//        }
+    public String createPersonPost(@ModelAttribute("Person")@Valid Person person, BindingResult result) {
+        if(result.hasErrors()){
+            return "redirect:/skillMatrix/person/create";
+        }
         person.setSkillsList(skillsRepository.findAll());
         personService.savePerson(person);
-        httpSession.setAttribute("successAddPerson", person);
         return "redirect:/skillMatrix/person";
     }
 

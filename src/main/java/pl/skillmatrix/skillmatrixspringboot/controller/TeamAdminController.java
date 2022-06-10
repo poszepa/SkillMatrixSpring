@@ -29,19 +29,17 @@ public class TeamAdminController {
 
     @GetMapping("team/create")
     public String createTeam(Model model, HttpSession httpSession) {
-        httpSession.setMaxInactiveInterval(1);
         TeamsInWarehouse team = new TeamsInWarehouse();
         model.addAttribute("team",team);
         return "skillMatrix/admin/team/teamCreate";
     }
 
     @PostMapping("team/create")
-    public String createTeam(@ModelAttribute("team")TeamsInWarehouse team, HttpSession httpSession){
+    public String createTeam(@ModelAttribute("team")TeamsInWarehouse team ){
         if(team == null) {
             return "redirect:/skillMatrix/admin/team/create";
         }
         teamRepository.save(team);
-        httpSession.setAttribute("success", "Correctly added a new Team");
         return "redirect:/skillMatrix/admin/team/create";
     }
 

@@ -29,15 +29,14 @@ public class FunctionsAdminController {
     }
 
     @GetMapping("function/create")
-    public String createFunction(Model model, HttpSession httpSession) {
-        httpSession.setMaxInactiveInterval(1);
+    public String createFunction(Model model) {
         FunctionInWarehouse function = new FunctionInWarehouse();
         model.addAttribute("function",function);
         return "skillMatrix/admin/function/functionCreate";
     }
 
     @PostMapping("function/create")
-    public String createFunction(@ModelAttribute("function")@Valid FunctionInWarehouse function, BindingResult bindingResult, HttpSession httpSession){
+    public String createFunction(@ModelAttribute("function")@Valid FunctionInWarehouse function, BindingResult bindingResult){
         if(bindingResult.hasErrors()) {
             return "redirect:/skillMatrix/admin/function/create";
         }
@@ -45,7 +44,6 @@ public class FunctionsAdminController {
             return "redirect:/skillMatrix/admin/function/create";
         }
         functionRepository.save(function);
-        httpSession.setAttribute("success", "Correctly added a new function");
         return "redirect:/skillMatrix/admin/function/create";
     }
 

@@ -28,15 +28,14 @@ public class GroupAdminController {
     }
 
     @GetMapping("group/create")
-    public String createGroup(Model model, HttpSession httpSession) {
-        httpSession.setMaxInactiveInterval(1);
+    public String createGroup(Model model) {
         GroupsInWarehouse group = new GroupsInWarehouse();
         model.addAttribute("group",group);
         return "skillMatrix/admin/group/groupCreate";
     }
 
     @PostMapping("group/create")
-    public String createGroup(@ModelAttribute("group")@Valid GroupsInWarehouse group , BindingResult bindingResult, HttpSession httpSession){
+    public String createGroup(@ModelAttribute("group")@Valid GroupsInWarehouse group , BindingResult bindingResult){
         if(bindingResult.hasErrors()) {
             return "redirect:/skillMatrix/admin/group/create";
         }
@@ -44,7 +43,6 @@ public class GroupAdminController {
             return "redirect:/skillMatrix/admin/group/create";
         }
         groupRepository.save(group);
-        httpSession.setAttribute("success", "Correctly added a new group");
         return "redirect:/skillMatrix/admin/group/create";
     }
 

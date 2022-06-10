@@ -38,25 +38,22 @@ public class SkillsAdminController {
     }
 
     @GetMapping("skills/create")
-    public String skillsCreate(Model model, HttpSession session) {
-        session.setMaxInactiveInterval(1);
+    public String skillsCreate(Model model) {
         model.addAttribute("skill", new Skills());
         return "/skillMatrix/admin/skills/skillsCreate";
     }
 
     @PostMapping("skills/create")
-    public ModelAndView skillsCreated(@ModelAttribute("skill")@Valid Skills skills, BindingResult result, HttpSession session) {
+    public ModelAndView skillsCreated(@ModelAttribute("skill")@Valid Skills skills, BindingResult result) {
         if(result.hasErrors()) {
             return new ModelAndView("redirect:/skillMatrix/admin/skills/create");
         }
         skillsService.saveSkill(skills);
-        session.setAttribute("successAddSkill", "successAddSkill");
         return new ModelAndView("redirect:/skillMatrix/admin/skills");
     }
 
     @GetMapping("skills/edit/{id}")
-    public String skillEdit(Model model, @PathVariable("id")Integer id, HttpSession session) {
-        session.setMaxInactiveInterval(1);
+    public String skillEdit(Model model, @PathVariable("id")Integer id) {
         if(!skillsRepository.existsById(id)){
             return "redirect: /skillMatrix/admin/skills/skills";
         }
@@ -65,13 +62,11 @@ public class SkillsAdminController {
     }
 
     @PostMapping("skills/edit")
-    public String skillEdited(@ModelAttribute("skill") @Valid Skills skills, @NotNull BindingResult result, HttpSession session) {
+    public String skillEdited(@ModelAttribute("skill") @Valid Skills skills, @NotNull BindingResult result) {
         if(result.hasErrors()) {
-//            return "redirect:/skillMatrix/admin/skills/edit/" + skills.getId();
-            return "redirect:/skillMatrix/admin/skills/";
+            return "redirect:/skillMatrix/admin/skills/edit/" + skills.getId();
         }
         skillsService.modifySkills(skills);
-        session.setAttribute("successEditSkill", "successEditSkill");
         return "redirect:/skillMatrix/admin/skills/edit/" + skills.getId();
     }
 
