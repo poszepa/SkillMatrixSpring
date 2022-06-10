@@ -5,9 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.skillmatrix.skillmatrixspringboot.model.DepartmentsInWarehouse;
-import pl.skillmatrix.skillmatrixspringboot.model.Skills;
 import pl.skillmatrix.skillmatrixspringboot.repository.DepartmentsInWarehouseRepository;
-import pl.skillmatrix.skillmatrixspringboot.repository.SkillsRepository;
+import pl.skillmatrix.skillmatrixspringboot.service.ColorService;
 import pl.skillmatrix.skillmatrixspringboot.service.OwnedSkillService;
 import pl.skillmatrix.skillmatrixspringboot.service.PersonService;
 
@@ -22,6 +21,7 @@ public class DashboardController {
     private final DepartmentsInWarehouseRepository departmentsRepository;
     private final PersonService personService;
     private final OwnedSkillService ownedSkillService;
+    private final ColorService colorService;
 
 
 
@@ -37,6 +37,8 @@ public class DashboardController {
         model.addAttribute("personsCount", personService.countPeopleByDepartmentID());
         model.addAttribute("department", new DepartmentsInWarehouse());
         model.addAttribute("departmentFromPath", department);
+        model.addAttribute("color", colorService.colorsToChartList(0.0));
+        model.addAttribute("colorBackground", colorService.colorsToChartList(0.2));
 
         List<DepartmentsInWarehouse> departmentsInWarehouses = departmentsRepository.findDepartmentWithoutGeneral();
         DepartmentsInWarehouse skillDepartment = departmentsRepository.findByNameDepartment(department);
