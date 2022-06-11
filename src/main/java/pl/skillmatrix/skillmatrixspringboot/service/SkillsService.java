@@ -5,12 +5,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import pl.skillmatrix.skillmatrixspringboot.model.Person;
+import pl.skillmatrix.skillmatrixspringboot.model.PersonGetRequiredSkills;
 import pl.skillmatrix.skillmatrixspringboot.model.Skills;
 import pl.skillmatrix.skillmatrixspringboot.repository.*;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -22,6 +23,7 @@ public class SkillsService {
     private final DepartmentsInWarehouseRepository departmentRepository;
     private final GroupsInWarehouseRepository groupRepository;
     private final TeamsInWarehouseRepository teamRepository;
+    private final OwnedSkillService ownedSkillService;
 
     @Modifying
     @Transactional
@@ -47,6 +49,25 @@ public class SkillsService {
                         skill.getNameSkill(),
                         skill.getDepartmentsInWarehouse().getId()
                 ).getId());
+    }
+
+    public PersonGetRequiredSkills getPersonRequiredSkill(Integer personID) {
+        PersonGetRequiredSkills getListPersonWithSkills = new PersonGetRequiredSkills();
+        getListPersonWithSkills.setPersonID(personID);
+        getListPersonWithSkills.setValuePercentGainedSkill(ownedSkillService.getPercentValueGainedSkillToEveryRequiredSkill(personID));
+        return getListPersonWithSkills;
+    }
+
+    public List<PersonGetRequiredSkills> getListPersonRequiredSkill() {
+        List<Person> listPersonActive = personRepository.findPersonsByActiveTrue();
+
+        List<PersonGetRequiredSkills> getRequiredSkillsList = new ArrayList<>();
+
+        listPersonActive.forEach(person ->
+                getRequiredSkillsList.add(getPersonRequiredSkill(person.getId())));
+
+        return getRequiredSkillsList;
+
     }
 
 
