@@ -56,18 +56,31 @@
                     <th data-sortable="true">Function</th>
                     <th data-sortable="true">Group</th>
                     <th data-sortable="true">Team</th>
+                    <c:forEach items="${departments}" var="department">
+                        <th data-sortable="true">${department.nameDepartment}</th>
+                    </c:forEach>
                     <th data-field="Description">Edit</th>
                 </tr>
                 </thead>
-                <c:forEach items="${allPerson}" var="person">
-                    <tr>
-                        <th>${person.expertis}</th>
-                        <th>${person.name}</th>
-                        <th>${person.surname}</th>
-                        <th>${person.departmentsInWarehouse.nameDepartment}</th>
-                        <th>${person.functionInWarehouse.functionName}</th>
-                        <th>${person.groupsInWarehouse.nameGroup}</th>
-                        <th>${person.teamsInWarehouse.nameTeam}</th>
+                <c:forEach items="${allPerson}" var="person" varStatus="status">
+                    <tr style="text-align: center">
+                        <td>${person.expertis}</td>
+                        <td>${person.name}</td>
+                        <td>${person.surname}</td>
+                        <td>${person.departmentsInWarehouse.nameDepartment}</td>
+                        <td>${person.functionInWarehouse.functionName}</td>
+                        <td>${person.groupsInWarehouse.nameGroup}</td>
+                        <td>${person.teamsInWarehouse.nameTeam}</td>
+                            <c:forEach items="${skillsPerson[status.index].valuePercentGainedSkill}" var="pSkill">
+                                <td>
+                                        <c:if test="${pSkill == 1.0}">
+                                            <i class="bi bi-check-lg"></i>
+                                        </c:if>
+                                        <c:if test="${pSkill < 1.0}">
+                                        <i class="bi bi-x-lg"></i>
+                                         </c:if>
+                                </td>
+                            </c:forEach>
                         <th><a type="button" href="/skillMatrix/person/${person.id}">Description</a> </th>
                     </tr>
                 </c:forEach>
