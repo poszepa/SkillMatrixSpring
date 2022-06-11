@@ -35,7 +35,6 @@ public class PersonController {
 
     @GetMapping("person/create")
     public String createPerson(Model model, HttpSession httpSession) {
-        model.addAttribute("departmentsWithoutGeneral", departmentsRepository.findDepartmentWithoutGeneral());
         httpSession.getAttribute("successAddPerson");
         model.addAttribute("person", new Person());
         return "skillMatrix/createPerson";
@@ -159,6 +158,11 @@ public class PersonController {
         personFromDB.setActive(false);
         personRepository.save(personFromDB);
         return "redirect:/skillMatrix/person";
+    }
+
+    @ModelAttribute("departmentsWithoutGeneral")
+    public List<DepartmentsInWarehouse> getDepartmentsWithoutGeneral(){
+        return departmentsRepository.findDepartmentWithoutGeneral();
     }
 
     @ModelAttribute("departments")
