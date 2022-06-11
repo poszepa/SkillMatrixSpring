@@ -44,9 +44,9 @@ public class PersonController {
     }
 
     @PostMapping("person/create")
-    public String createPersonPost(@ModelAttribute("Person")@Valid Person person, BindingResult result) {
+    public String createPersonPost(@ModelAttribute("person")@Valid Person person, BindingResult result) {
         if(result.hasErrors()){
-            return "redirect:/skillMatrix/person/create";
+            return "/skillMatrix/createPerson";
         }
         person.setSkillsList(skillsRepository.findAll());
         personService.savePerson(person);
