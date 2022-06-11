@@ -135,7 +135,7 @@ public class PersonController {
     @PostMapping("/person/edit")
     public String modifyPerson(@ModelAttribute("person")@Valid Person person, BindingResult result) {
         if(result.hasErrors()) {
-            return "redirect:/skillMatrix/person/" +person.getId();
+            return "skillMatrix/personDescription";
         }
         personRepository.save(person);
 
