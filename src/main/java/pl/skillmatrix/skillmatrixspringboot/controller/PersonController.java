@@ -1,11 +1,7 @@
 package pl.skillmatrix.skillmatrixspringboot.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +10,7 @@ import pl.skillmatrix.skillmatrixspringboot.repository.*;
 import pl.skillmatrix.skillmatrixspringboot.service.ColorService;
 import pl.skillmatrix.skillmatrixspringboot.service.OwnedSkillService;
 import pl.skillmatrix.skillmatrixspringboot.service.PersonService;
+import pl.skillmatrix.skillmatrixspringboot.service.SkillsService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,6 +31,7 @@ public class PersonController {
     private final PersonService personService;
     private final OwnedSkillService ownedSkillService;
     private final ColorService colorService;
+    private final SkillsService skillsService;
 
     @GetMapping("person/create")
     public String createPerson(Model model, HttpSession httpSession) {
@@ -64,6 +62,7 @@ public class PersonController {
             session.removeAttribute("groupPerson");
             session.removeAttribute("teamPerson");
             model.addAttribute("allPerson",personRepository.findPersonsByActiveTrue());
+            model.addAttribute("skillsPerson", skillsService.getListPersonRequiredSkill());
             return "/skillMatrix/person";
         }
 
@@ -76,7 +75,7 @@ public class PersonController {
         if(session.getAttribute("teamPerson") != null) {
             personTeam = session.getAttribute("teamPerson").toString();
         }
-
+        model.addAttribute("skillsPerson", skillsService.getListPersonRequiredSkill());
         model.addAttribute("allPerson",personService.showPerson(personDepartment, personGroup, personTeam));
         return "/skillMatrix/person";
     }
