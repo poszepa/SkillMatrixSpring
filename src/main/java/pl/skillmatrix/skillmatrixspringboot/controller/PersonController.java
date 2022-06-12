@@ -32,6 +32,9 @@ public class PersonController {
     private final OwnedSkillService ownedSkillService;
     private final ColorService colorService;
     private final SkillsService skillsService;
+    private final OwnedSkillRepository ownedSkillRepository;
+
+    
 
     @GetMapping("person/create")
     public String createPerson(Model model, HttpSession httpSession) {
@@ -152,12 +155,18 @@ public class PersonController {
     @PostMapping("/person/remove")
     public String removePerson(@ModelAttribute("person")Person person) {
         if(!personRepository.existsById(person.getId())) {
-            return "redirect:/skillMatrix/person/" + person.getId();
+            return "redirect:/skillMatrix/person" + person.getId();
         }
         Person personFromDB = personRepository.findPersonById(person.getId());
         personFromDB.setActive(false);
         personRepository.save(personFromDB);
         return "redirect:/skillMatrix/person";
+    }
+
+    @GetMapping("person/{id}/leftRequiredSKills")
+    public String getLeftRequiredSkills(@PathVariable("id")Integer personID, Model model) {
+        model.addAttribute("leftSkills", ownedSkillRepository.leftRequiredSkillsForPerson(personID));
+        return "/skillMatrix/personLeftSkills";
     }
 
     @ModelAttribute("departmentsWithoutGeneral")
