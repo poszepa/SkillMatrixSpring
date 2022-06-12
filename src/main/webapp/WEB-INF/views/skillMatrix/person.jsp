@@ -46,18 +46,19 @@
                     data-search="true"
                     id="table"
                     data-toggle="table"
-                    data-height="660">
+                    data-height="660"
+                    data-show-columns="true">
                 <thead>
                 <tr>
-                    <th data-sortable="true">Expertis</th>
-                    <th data-sortable="true">First Name</th>
-                    <th data-sortable="true">Last Name</th>
-                    <th data-sortable="true">Departments</th>
-                    <th data-sortable="true">Function</th>
-                    <th data-sortable="true">Group</th>
-                    <th data-sortable="true">Team</th>
+                    <th data-field="Expertis" data-sortable="true">Expertis</th>
+                    <th data-field="First name" data-sortable="true">First Name</th>
+                    <th data-field="Last name" data-sortable="true">Last Name</th>
+                    <th data-field="Department" data-sortable="true">Departments</th>
+                    <th data-field="Function" data-sortable="true">Function</th>
+                    <th data-field="Group" data-sortable="true">Group</th>
+                    <th data-field="Team" data-sortable="true">Team</th>
                     <c:forEach items="${departments}" var="department">
-                        <th data-sortable="true">${department.nameDepartment}</th>
+                        <th data-field="${department.nameDepartment}" data-sortable="true">${department.nameDepartment}</th>
                     </c:forEach>
                     <th data-field="Description">Edit</th>
                 </tr>
