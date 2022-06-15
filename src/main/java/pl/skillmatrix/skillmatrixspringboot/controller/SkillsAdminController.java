@@ -1,11 +1,9 @@
 package pl.skillmatrix.skillmatrixspringboot.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.skillmatrix.skillmatrixspringboot.model.DepartmentsInWarehouse;
@@ -15,11 +13,8 @@ import pl.skillmatrix.skillmatrixspringboot.repository.PersonRepository;
 import pl.skillmatrix.skillmatrixspringboot.repository.SkillsRepository;
 import pl.skillmatrix.skillmatrixspringboot.service.SkillsService;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
-import java.util.Optional;
 
 //@Secured("ROLE_ADMIN")
 @RequiredArgsConstructor
@@ -62,7 +57,7 @@ public class SkillsAdminController {
     }
 
     @PostMapping("skills/edit")
-    public String skillEdited(@ModelAttribute("skill") @Valid Skills skills, @NotNull BindingResult result) {
+    public String skillEdited(@ModelAttribute("skill") @Valid Skills skills, BindingResult result) {
         if(result.hasErrors()) {
             return "redirect:/skillMatrix/admin/skills/edit/" + skills.getId();
         }

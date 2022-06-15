@@ -32,6 +32,7 @@ public class SkillsService {
         skillFromDataBase.setPersonList(personRepository.findAll());
         skillFromDataBase.setNameSkill(skills.getNameSkill());
         skillFromDataBase.setIsRequired(skills.getIsRequired());
+        skillFromDataBase.setDepartmentsInWarehouse(skills.getDepartmentsInWarehouse());
         skillsRepository.save(skillFromDataBase);
     }
 
