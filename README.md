@@ -27,4 +27,4 @@ In aplicatation you can see:
 
 ## Check on view
 
-If you wanna check aplication from role role you can visit those site: http://75.119.132.140:8081/   
+If you wanna check aplication from role user you can visit those site: http://75.119.132.140:8081/   
