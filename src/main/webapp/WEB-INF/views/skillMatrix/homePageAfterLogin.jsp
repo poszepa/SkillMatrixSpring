@@ -44,11 +44,11 @@
                 <c:forEach items="${skills}" var="skill">
                     <tr>
                         <input type="hidden" name="id" value="${skill.id}"/>
-                        <td><input type="text" name="nameSkill" value="${skill.nameSkill}"/>
-                        <td><input type="text" name="department" value="${skill.departmentsInWarehouse.nameDepartment}"></td>
+                        <td>${skill.nameSkill}</td>
+                        <td>${skill.departmentsInWarehouse.nameDepartment}</td>
                         <td class="tdWithSkillRequired"><input type="checkbox" ${skill.isRequired == true? "checked": ""} name="skillRequired" value="${skill.isRequired}"></td>
-                        <td><input type="datetime-local" name="skillCreated" value="${skill.createTime}"></td>
-                        <td><input type="datetime-local" name="updateTime" value="${skill.updateTime}"></td>
+                        <td>${skill.createTime}</td>
+                        <td>${skill.updateTime}</td>
                         <td data-width="100"><a type="button" href="/skillMatrix/skills/${skill.departmentsInWarehouse.nameDepartment}/${skill.nameSkill}">Go to the skill</a></td>
                     </tr>
                 </c:forEach>

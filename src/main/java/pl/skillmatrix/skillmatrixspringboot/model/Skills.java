@@ -39,11 +39,11 @@ public class Skills {
 
     @CreationTimestamp
     @Column(name = "create_time")
-    private LocalDateTime createTime;
+    private LocalDate createTime;
 
     @UpdateTimestamp
     @Column(name = "update_time")
-    private LocalDateTime updateTime;
+    private LocalDate updateTime;
 
     @OneToMany(mappedBy = "skills")
     @ToString.Exclude
