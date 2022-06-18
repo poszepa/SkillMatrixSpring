@@ -1,6 +1,7 @@
 package pl.skillmatrix.skillmatrixspringboot.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import pl.skillmatrix.skillmatrixspringboot.model.OwnedSkill;
@@ -126,4 +127,10 @@ public interface OwnedSkillRepository extends JpaRepository<OwnedSkill, Integer>
             "AND ownedSkill.skills.isRequired = true " +
             "ORDER BY ownedSkill.skills.departmentsInWarehouse.nameDepartment")
     public List<OwnedSkill> leftRequiredSkillsForPerson(@Param("personID")Integer personID);
+
+
+    @Modifying
+    @Query(value = "UPDATE skill_matrix.owned_skill SET gain_skill = false WHERE skill_matrix.owned_skill.skill_id = :skillID", nativeQuery = true)
+    public void afterUpdateSetGainedSkillToFalse(@Param("skillID")Integer skillId);
+
 }

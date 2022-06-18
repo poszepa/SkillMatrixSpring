@@ -34,6 +34,7 @@ public class SkillsService {
         skillFromDataBase.setIsRequired(skills.getIsRequired());
         skillFromDataBase.setDepartmentsInWarehouse(skills.getDepartmentsInWarehouse());
         skillsRepository.save(skillFromDataBase);
+        ownedSkillRepository.afterUpdateSetGainedSkillToFalse(skills.getId());
     }
 
     @Modifying
