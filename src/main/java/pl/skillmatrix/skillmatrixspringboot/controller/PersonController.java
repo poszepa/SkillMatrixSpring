@@ -163,7 +163,7 @@ public class PersonController {
         return "redirect:/skillMatrix/person";
     }
 
-    @GetMapping("person/{id}/leftRequiredSKills")
+    @GetMapping("person/{id}/leftRequiredSkills")
     public String getLeftRequiredSkills(@PathVariable("id")Integer personID, Model model) {
         model.addAttribute("leftSkills", ownedSkillRepository.leftRequiredSkillsForPerson(personID));
         return "/skillMatrix/personLeftSkills";
