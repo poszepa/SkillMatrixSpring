@@ -65,6 +65,7 @@
           <button type="submit" class="btn btn-primary">Modify person</button>
           <a type="button" href="/skillMatrix/person/remove/${id}" class="btn btn-primary">Remove person</a>
         </div>
+        <a href="/skillMatrix/person/${id}/leftRequiredSkills">Show left required skills</a>
       </form:form>
       <div class="fieldChart">
         <div>
