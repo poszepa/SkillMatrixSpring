@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Group in warehouse specificity")
 class GroupsInWarehouseRepositoryTest {
 
-    @Autowired GroupsInWarehouseRepository groupRepository;
-    @Autowired TestEntityManager testEntityManager;
+    @Autowired private GroupsInWarehouseRepository groupRepository;
+    @Autowired private TestEntityManager testEntityManager;
 
     @Test
     @DisplayName("Should find group by name")
